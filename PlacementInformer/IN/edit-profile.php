@@ -128,6 +128,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrapValidator.css" rel="stylesheet" />
     <link rel="SHORTCUT ICON" href="images/rvce.ico">
 
    
@@ -169,7 +170,7 @@ if ((isset($_SESSION['edit_profile'])))
 {
 
   $edit_profile=$_SESSION['edit_profile'];
-  if($edit_profile=1)
+  if($edit_profile==1)
   {
     echo"<script>";
     echo'$(document).ready(function() {';
@@ -331,7 +332,7 @@ if ((isset($_SESSION['edit_profile'])))
 
 
 
-<form class="form-horizontal" name = "edit-profile" method = "post" id = "edit-profile" action = "<?php echo htmlspecialchars('php/edit-profile-insert.php');?>">
+<form class="form-horizontal" name = "edit-profile" method = "post"  id = "edit-profile" action = "php/edit-profile-insert.php">
 <fieldset>
 <!-- Form Name -->
 <legend class="head1">Profile</legend>
@@ -358,7 +359,7 @@ if ((isset($_SESSION['edit_profile'])))
       <?php
       $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
       while($db_field=mysqli_fetch_assoc($result)) {
-          echo "<input id=\"name\" name=\"name\" type=\"text\" value = " . $db_field['name'] . " class=\"form-control input-md in4\">";
+          echo "<input id=\"name\" name=\"name\" type=\"text\" value = " . $db_field['name'] . " class=\"form-control input-md in4\" data-bv-notempty=\"true\" data-bv-notempty-message=\"What's your Name?\">";
       }
     ?>
   </div>
@@ -372,7 +373,7 @@ if ((isset($_SESSION['edit_profile'])))
       $result = mysqli_query($con,"SELECT email FROM student where USN = '$uname';");
       while($db_field=mysqli_fetch_assoc($result))
       {
-          echo "<input id=\"email\" name=\"email\" type=\"text\" value = " . $db_field['email'] . " class=\"form-control input-md in4\">";
+          echo "<input id=\"email\" name=\"email\" type=\"email\" value = " . $db_field['email'] . " class=\"form-control input-md in4\" data-bv-notempty=\"true\" data-bv-notempty-message=\"What's your Email ID?\" data-bv-emailaddress-message=\"The input is not a valid email address\">";
       }
       ?>
   </div>
@@ -385,7 +386,7 @@ if ((isset($_SESSION['edit_profile'])))
             $result = mysqli_query($con,"SELECT branch FROM student where USN = '$uname';");
             while($db_field=mysqli_fetch_assoc($result))
             {
-                echo "<input id=\"branch\" name=\"branch\" type=\"text\" value = ". $db_field['branch'] . " class=\"form-control input-md in4\">";
+                echo "<input id=\"branch\" name=\"branch\" type=\"text\" value = ". $db_field['branch'] . " class=\"form-control input-md in4\" data-bv-notempty=\"true\" data-bv-notempty-message=\"What's your Branch?\">";
             }
             ?>
         </div>
@@ -399,7 +400,7 @@ if ((isset($_SESSION['edit_profile'])))
       $result = mysqli_query($con,"SELECT phone FROM student where USN = '$uname';");
       while($db_field=mysqli_fetch_assoc($result))
       {
-          echo "<input id=\"phone\" name=\"phone\" type=\"text\" value = " . $db_field['phone'] . " class=\"form-control input-md in4\">";
+          echo "<input id=\"phone\" name=\"phone\" type=\"text\" value = " . $db_field['phone'] . " class=\"form-control input-md in4\" data-bv-notempty=\"true\" data-bv-notempty-message=\"What's your Phone number?\" data-bv-phone=\"true\" data-bv-phone-country=\"US\" data-bv-phone-message=\"Enter valid phone number\">";
       }
       ?>
 
@@ -410,27 +411,45 @@ if ((isset($_SESSION['edit_profile'])))
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4  in1 control-label" for="tenth">10th %</label>  
-  <div class="col-md-2">
+  <div class="col-md-3">
       <?php
       $result = mysqli_query($con,"SELECT tenthPercent FROM student where USN = '$uname';");
       while($db_field=mysqli_fetch_assoc($result))
       {
-          echo "<input id=\"tenth\" name=\"tenth\" type=\"text\" value = ". $db_field['tenthPercent'] . " class=\"form-control input-md in4\">";
+          echo "<input id=\"tenth\" name=\"tenth\" type=\"text\" value = ". $db_field['tenthPercent'] . " class=\"form-control input-md in4\"
+
+                 data-bv-greaterthan=\"true\"
+                  data-bv-greaterthan-value=\"0\"
+                  data-bv-lessthan=\"true\"
+                  data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\">";
       }
       ?>
     
   </div>
 </div>
 
-<!-- Text input-->
 <div class="form-group">
+
+    <label class="col-md-4 in1 control-label" for="radiocheck">Select an option</label>
+    <div class="col-md-5">
+        <label class="radio-inline">
+        <input type="radio" id="pucrb" name="pucdip" value="1" onclick="hidedata();">12th Standard</label>
+        <label class="radio-inline"><input type="radio" id="diprb" name="pucdip" value="2" onclick="hidedata();">Diploma</label>
+    </div>
+</div>
+<!-- Text input-->
+<div class="form-group" id="t1">
   <label class="col-md-4  in1 control-label" for="twelfth">12th % (N/A)</label>  
-  <div class="col-md-2">
+  <div class="col-md-3">
       <?php
       $result = mysqli_query($con,"SELECT twelthPercent FROM student where USN = '$uname';");
       while($db_field=mysqli_fetch_assoc($result))
       {
-          echo "<input id=\"twelfth\" name=\"twelfth\" type=\"text\" value = ". $db_field['twelthPercent'] . " class=\"form-control input-md in4\">";
+          echo "<input id=\"twelfth\" name=\"twelfth\" type=\"text\" value = ". $db_field['twelthPercent'] . " class=\"form-control input-md in4\"
+                  data-bv-greaterthan=\"true\"
+                  data-bv-greaterthan-value=\"0\"
+                  data-bv-lessthan=\"true\"
+                  data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\">";
       }
       ?>
 
@@ -439,14 +458,18 @@ if ((isset($_SESSION['edit_profile'])))
 </div>
 
 <!-- Text input-->
-<div class="form-group">
+<div class="form-group" id ="t2">
   <label class="col-md-4  in1 control-label" for="diploma">Diploma % (N/A)</label>  
-  <div class="col-md-2">
+  <div class="col-md-3">
       <?php
       $result = mysqli_query($con,"SELECT diplomapercent FROM student where USN = '$uname';");
       while($db_field=mysqli_fetch_assoc($result))
       {
-          echo "<input id=\"diploma\" name=\"diploma\" type=\"text\" value = ". $db_field['diplomapercent'] . " class=\"form-control input-md in4\">";
+          echo "<input id=\"diploma\" name=\"diploma\" type=\"text\" value = ". $db_field['diplomapercent'] . " class=\"form-control input-md in4\"
+                  data-bv-greaterthan=\"true\"
+                  data-bv-greaterthan-value=\"0\"
+                  data-bv-lessthan=\"true\"
+                  data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\">";
       }
       ?>
 
@@ -457,12 +480,17 @@ if ((isset($_SESSION['edit_profile'])))
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 in1  control-label" for="cgpa">CGPA</label>  
-  <div class="col-md-2">
+  <div class="col-md-3">
       <?php
       $result = mysqli_query($con,"SELECT cgpa FROM student where USN = '$uname';");
       while($db_field=mysqli_fetch_assoc($result))
       {
-          echo "<input id=\"cgpa\" name=\"cgpa\" type=\"text\" value = ". $db_field['cgpa'] . " class=\"form-control input-md in4\">";
+          echo "<input id=\"cgpa\" name=\"cgpa\" type=\"text\" value = ". $db_field['cgpa'] . " class=\"form-control input-md in4\"
+
+                  data-bv-greaterthan=\"true\"
+                  data-bv-greaterthan-value=\"0\"
+                  data-bv-lessthan=\"true\"
+                  data-bv-lessthan-value=\"10\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\">";;
       }
       ?>
 
@@ -476,7 +504,7 @@ if ((isset($_SESSION['edit_profile'])))
 <div class="form-group">
   <label class="col-md-4  in1 control-label" for="submit"></label>
   <div class="col-md-4">
-    <button id="submit" name="submit" class="btn btn-success">Submit</button>
+    <input type="submit"  class="btn btn-success" value="submit" />
   </div>
 </div>
 
@@ -495,11 +523,45 @@ if ((isset($_SESSION['edit_profile'])))
 
     <!-- jQuery Version 1.11.0 
     <script src="js/jquery-1.11.0.js"></script>-->
-
+    <script type="text/javascript" src="./jquery1/jquery-1.8.3.min.js" charset="UTF-8"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrapValidator.min.js"></script>
+    <script>
 
-   
+        $(document).ready(function() {
+            $('#edit-profile').bootstrapValidator({
+                container: 'tooltip',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            }});
+        });
+
+        var dipval= 0,pucval=0;
+        pucval=$('#twelfth').val();
+        dipval=$('#diploma').val();
+        function hidedata() {
+
+            var selected = $("input[name=pucdip]:checked").val();
+
+            if(selected==1)
+            {
+                $('#diploma').val(100);
+                $('#t2').hide();
+                $('#twelfth').val(pucval);
+                $('#t1').show();
+            }
+            else if(selected==2)
+            {
+                $('#twelfth').val(100);
+                $('#t1').hide();
+                $('#diploma').val(dipval);
+                $('#t2').show();
+            }
+        }
+    </script>
 </body>
 
 </html>

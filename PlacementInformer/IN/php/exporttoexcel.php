@@ -24,21 +24,20 @@ $con = mysqli_connect("$host", "$username", "$password","$db_name");
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
-$fname = 'C:\\Users\\RAHUL\\AppData\\Local\\Temp\\test.csv';
-//unlink($fname);
-//
-//$cname='Comm';
-echo "asdf";
-echo $_POST['companyname'];
+$uname=$_SESSION['username'];
+$fname = '/tmp/'.$uname.time().'.csv';
+//this works perfectly in ubuntu ... for windows change path where file permissions are present
+unlink($fname);
 $cname=$_POST['companyname'];
-$q="SELECT s.USN, s.NAME, s.BRANCH, s.EMAIL, s.PHONE,s.CGPA, s.tenthPercent, s.twelthpercent INTO OUTFILE  'C:\\Users\\RAHUL\\AppData\\Local\\Temp\\test.csv' FIELDS TERMINATED BY  ',' OPTIONALLY ENCLOSED BY  '\"' LINES TERMINATED BY  '\\n' FROM student as s ,applied as a WHERE a.USN=s.USN and a.name ='$_POST\[\'companyname\'\]'";
-//echo $q;
-$res = mysqli_query($con,$q);
-//print_r($res);
-$download_file = $cname.time().'.csv';
 
+$q="SELECT 'USN','NAME','BRANCH','EMAIL','PHONE','CGPA','tenth percent','twelthpercent' UNION ALL SELECT s.USN, s.NAME, s.BRANCH, s.EMAIL, s.PHONE,s.CGPA, s.tenthPercent, s.twelthpercent INTO OUTFILE  '$fname' FIELDS TERMINATED BY  ',' OPTIONALLY ENCLOSED BY  '\"'  LINES TERMINATED BY  '\\n' FROM student as s , applied as a WHERE a.USN=s.USN and a.NAME = '$cname';";
+$res = mysqli_query($con,$q);
+
+//print_r($con);
+$download_file = $cname.time().'.csv';
 // set the download rate limit (=> 20,5 kb/s)
 $download_rate=20.5;
+
 if(file_exists($fname) && is_file($fname))
 {
     header('Cache-control: private');
@@ -54,13 +53,14 @@ if(file_exists($fname) && is_file($fname))
         // flush the content to the browser
         flush();
         // sleep one second
-        sleep(1);
+        sleep(4);
     }
     fclose($file);
 }
 else {
     die('Error: The file '.$fname.' does not exist!');
 }
+
 
 
 ?>

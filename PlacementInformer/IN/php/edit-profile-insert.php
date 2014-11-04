@@ -26,6 +26,7 @@ $tenth = $_POST['tenth'];
 $twelth = $_POST['twelfth'];
 $diploma= $_POST['diploma'];
 
+
 /*$result = $mysqli->query("SELECT * from student where email = '$email';");
 if(mysqli_num_rows($result)>0)
 {

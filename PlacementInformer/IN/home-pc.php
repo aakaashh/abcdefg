@@ -175,7 +175,8 @@ if ((isset($_SESSION['insert'])))
 
         </style>
 		<link href="gener/genericons.css" rel="stylesheet">
-		<link href="css/home-pc-css/main.css" rel="stylesheet" /> 
+		<link href="css/home-pc-css/main.css" rel="stylesheet" />
+        <link href="../css/bootstrapValidator.css" rel="stylesheet" />
 		<!--   <link href="./bootstrap1/css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<link href="./css1/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 		-->
@@ -260,7 +261,7 @@ if ((isset($_SESSION['insert'])))
                     }
                     session_start();
                     $uname =  $_SESSION['userNameT'];
-                    $result = mysqli_query($con,"SELECT * FROM SPC where USN = '$uname';");
+                    $result = mysqli_query($con,"SELECT * FROM spc where USN = '$uname';");
                     if(mysqli_num_rows($result)>0)
                     {
                         echo "<li><a href=\"studentHome.php\" class=\"menu\" >Student View</a></li>";
@@ -295,7 +296,8 @@ if ((isset($_SESSION['insert'])))
                             <div class="form-group">
                                 <label class="col-md-4 control-label in3" for="curpass">Current Password</label>
                                 <div class="col-md-5">
-                                    <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md">
+                                    <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters">
+
                                 </div>
                             </div>
 
@@ -303,7 +305,10 @@ if ((isset($_SESSION['insert'])))
                             <div class="form-group">
                                 <label class="col-md-4 control-label in3" for="newpass">New Password</label>
                                 <div class="col-md-5">
-                                    <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md">
+                                    <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters"
+                                           data-bv-different="true"
+                                           data-bv-different-field="curpass"
+                                           data-bv-different-message="The old and new password cannot be the same" >
                                 </div>
                             </div>
 
@@ -311,7 +316,10 @@ if ((isset($_SESSION['insert'])))
                             <div class="form-group">
                                 <label class="col-md-4 control-label in3" for="connewpass">Confirm New Password</label>
                                 <div class="col-md-5">
-                                    <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md">
+                                    <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md"
+                                           data-bv-notempty="true" data-bv-notempty-message="The confirm password is required and cannot be empty"
+                                           data-bv-identical="true" data-bv-identical-field="newpass" data-bv-identical-message="Passwords do not match"
+                                           data-bv-different="true" data-bv-different-field="curpass" data-bv-different-message="The old and password cannot be the same" >
                                 </div>
                             </div>
 
@@ -364,7 +372,8 @@ if ((isset($_SESSION['insert'])))
 						<div class="form-group">
 						  <label class="col-md-4 control-label in4" for="cname">Company Name</label>
 						  <div class="col-md-5">
-						  <input id="cname" name="cname" type="text" placeholder="Company Name" class="in4 form-control input-md" required/>
+						  <input id="cname" name="cname" type="text" placeholder="Company Name" class="in4 form-control input-md"
+                                 data-bv-notempty="true" data-bv-notempty-message="What is the name of the company?" required/>
 
 						  </div>
 						</div>
@@ -373,7 +382,8 @@ if ((isset($_SESSION['insert'])))
 						<div class="form-group">
 						  <label class="col-md-4 in4 control-label" for="cdate">Date of Visit</label>
 						  <div class="col-md-5">
-						  <input id="cdate" name="cdate" type="date" placeholder="Date of Visit" class="in4 form-control input-md" required/>
+						  <input id="cdate" name="cdate" type="date" placeholder="Date of Visit" class="in4 form-control input-md" required
+                                 data-bv-notempty="true" data-bv-notempty-message="When is the company visiting?"/>
 
 						  </div>
 						</div>
@@ -382,7 +392,8 @@ if ((isset($_SESSION['insert'])))
 						<div class="form-group">
 						  <label class="col-md-4 in4 control-label" for="cjob">Job Profiles</label>
 						  <div class="col-md-5">
-						  <input id="cjob" name="cjob" type="text" placeholder="Job Profiles" class="in4 form-control input-md" required />
+						  <input id="cjob" name="cjob" type="text" placeholder="Job Profiles" class="in4 form-control input-md" required
+                                 data-bv-notempty="true" data-bv-notempty-message="What are the job profiles offered?"/>
 
 						  </div>
 						</div>
@@ -391,7 +402,8 @@ if ((isset($_SESSION['insert'])))
 						<div class="form-group">
 						  <label class="col-md-4 in4 control-label" for="cpackage">Package</label>
 						  <div class="col-md-5">
-						  <input id="cpackage" name="cpackage" type="text" placeholder="Package" class=" in4 form-control input-md" required />
+						  <input id="cpackage" name="cpackage" type="text" placeholder="Package" class=" in4 form-control input-md"
+                                 data-bv-notempty="true" data-bv-notempty-message="What is the Salary Package?"required />
 
 						  </div>
 						</div>
@@ -402,7 +414,7 @@ if ((isset($_SESSION['insert'])))
 						  <div class="col-md-4 in4">
 						  <div class="checkbox">
 							<label for="cbranches-0">
-							  <input type="checkbox" name="cbranches[]" id="cbranches-0" value="ISE">
+							  <input type="checkbox" name="cbranches[]" id="cbranches-0" value="ISE" data-bv-notempty="true" data-bv-message="Please specify at least one department">
 							  ISE
 							</label>
 							</div>
@@ -473,7 +485,12 @@ if ((isset($_SESSION['insert'])))
 						<div class="form-group">
 						  <label class="col-md-4 in4 control-label" for="ccgpa">CGPA Cut Off</label>
 						  <div class="col-md-5">
-						  <input id="ccgpa" name="ccgpa" type="text" placeholder="CGPA Cut Off" class="in4 form-control input-md"  />
+						  <input id="ccgpa" name="ccgpa" type="text" placeholder="CGPA Cut Off" class="in4 form-control input-md"
+                                 data-bv-greaterthan="true"
+                                 data-bv-greaterthan-value="0"
+                                 data-bv-lessthan="true"
+                                 data-bv-lessthan-value="10"
+                              />
 
 						  </div>
 						</div>
@@ -482,7 +499,12 @@ if ((isset($_SESSION['insert'])))
 						<div class="form-group in4">
 						  <label class="col-md-4 in4 control-label" for="ctenth">10th Cut Off</label>
 						  <div class="col-md-5">
-						  <input id="ctenth" name="ctenth" type="text" placeholder="10th Cut Off" class="in4 form-control input-md"  />
+						  <input id="ctenth" name="ctenth" type="text" placeholder="10th Cut Off" class="in4 form-control input-md"
+                                 data-bv-greaterthan="true"
+                                 data-bv-greaterthan-value="0"
+                                 data-bv-lessthan="true"
+                                 data-bv-lessthan-value="100"
+                              />
 
 						  </div>
 						</div>
@@ -491,7 +513,14 @@ if ((isset($_SESSION['insert'])))
 						<div class="form-group">
 						  <label class="col-md-4 in4  control-label" for="ctwelth">12th Cut Off</label>
 						  <div class="col-md-5">
-						  <input id="ctwelth" name="ctwelth" type="text" placeholder="12th Cut Off" class="in4 form-control input-md"  />
+						  <input id="ctwelth" name="ctwelth" type="text" placeholder="12th Cut Off" class="in4 form-control input-md"
+                                 data-bv-greaterthan="true"
+                                 data-bv-greaterthan-value="0"
+                                 data-bv-lessthan="true"
+                                 data-bv-lessthan-value="100"
+
+
+                              />
 
 						  </div>
 						</div>
@@ -499,7 +528,12 @@ if ((isset($_SESSION['insert'])))
 						<div class="form-group">
 						  <label class="col-md-4 in4 control-label" for="cdiploma">Diploma Cut Off</label>
 						  <div class="col-md-5">
-						  <input id="cdiploma" name="cdiploma" type="text" placeholder="Diploma Cut Off" class="in4 form-control input-md"  />
+						  <input id="cdiploma" name="cdiploma" type="text" placeholder="Diploma Cut Off" class="in4 form-control input-md"
+                                 data-bv-greaterthan="true"
+                                 data-bv-greaterthan-value="0"
+                                 data-bv-lessthan="true"
+                                 data-bv-lessthan-value="100"
+                              />
 
 						  </div>
 						</div>
@@ -579,7 +613,7 @@ if ((isset($_SESSION['insert'])))
 
           <?php
 
-          $result = mysqli_query($con,"SELECT C.NAME, C.lastDateReg FROM COMPANY as C, DATEOFVISIT as D where C.NAME = D.NAME and D.DATE = curdate() ORDER BY D.DATE");
+          $result = mysqli_query($con,"SELECT C.NAME, C.lastDateReg FROM company as C, dateofvisit as D where C.NAME = D.NAME and D.DATE = curdate() ORDER BY D.DATE");
             if(mysqli_num_rows($result)==0)
             {
                 echo "<div class=\"container-fluid col in1\" >";
@@ -607,7 +641,7 @@ if ((isset($_SESSION['insert'])))
           ?>
             <h4 class="panel-heading head1" ><strong>Upcoming Companies:</strong></h4>
             <?php
-			$result = mysqli_query($con,"SELECT * FROM COMPANY as C, DATEOFVISIT as D where C.NAME = D.NAME and D.DATE > curdate() ORDER BY D.DATE");
+			$result = mysqli_query($con,"SELECT * FROM company as C, dateofvisit as D where C.NAME = D.NAME and D.DATE > curdate() ORDER BY D.DATE");
 			
 			while($db_field=mysqli_fetch_assoc($result)) {
                 echo "<div class=\"container-fluid col\" >";
@@ -620,19 +654,19 @@ if ((isset($_SESSION['insert'])))
                 echo "<span class='in2' style='margin-left:10px;'>" . $db_field['lastDateReg'] . "</span>";
 
                 echo "<form action='php/exporttoexcel.php' method = 'post' target='_blank'>";
-                $s= "<input type='hidden' name='companyname' id = 'companyname' value='";
-                $s.=$companyName."'";
-                //echo $s;
+                $s= "<input type='hidden' name='companyname' id = 'companyname' value='".$companyName."'>";
+
+                echo $s;
                 echo "</div>";
                 echo "<div class=\"col-md-2 col-sm-12 col-lg-2 col-xs-12 col-md-push-10 col-lg-push-10 each1\"> <input type=\"submit\" class=\"btn btn-success\" value=\"Download\"></div>";
                 echo "</div>";
-                echo $s;
+                //echo $s;
                 echo "</form>";
             }?>
 
-       		<!--</div>
 
-<script type="text/javascript" src="./jquery1/jquery-1.8.3.min.js" charset="UTF-8"></script>-->
+
+<script type="text/javascript" src="./jquery1/jquery-1.8.3.min.js" charset="UTF-8"></script>
 <!-- <script type="text/javascript" src="./bootstrap1/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="./js1/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="./js1/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
@@ -651,13 +685,26 @@ if ((isset($_SESSION['insert'])))
     });
 
 </script>
-		
+<script>
+    $(document).ready(function() {
+        $('#changePass').bootstrapValidator({feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        }});
+        $('#detailsUpcomingCompany').bootstrapValidator({feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        }});
+    });
+</script>
 <!-- jQuery Version 1.11.0 
 <script src="js/jquery-1.11.0.js"></script>
 
 <! Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-
+<script src="../js/bootstrapValidator.min.js"></script>
 </body>
 
 </html>

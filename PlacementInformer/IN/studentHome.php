@@ -37,6 +37,7 @@ header('Location: ../');
     <meta name="author" content="">
     <link rel="SHORTCUT ICON" href="images/rvce.ico">
     <link href='css/fullcalendar.css' rel='stylesheet' />
+    <link href="../css/bootstrapValidator.css" rel="stylesheet" />
 <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
 <script src='js/lib/moment.min.js'></script>
 <script src='js/lib/jquery.min.js'></script>
@@ -287,7 +288,7 @@ header('Location: ../');
                 <ul class="nav navbar-nav navbar-right" >
                 	<li><a href="" class="menu" data-toggle="modal" data-target="#calenderModal" >Calender View</a></li>
                     <?php
-                    $result = mysqli_query($con,"SELECT * FROM SPC where USN = '$uname';");
+                    $result = mysqli_query($con,"SELECT * FROM spc where USN = '$uname';");
                     if(mysqli_num_rows($result)>0)
                     {
                         echo "<li ><a class=\"menu\" href=\"home-pc.php\"  >PC View</a></li>";
@@ -305,54 +306,61 @@ header('Location: ../');
         </div>
 	<!--	</div>-->
 
-    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color:#FF9F85;">
-                    <h4 class="modal-title head1" id="myModalLabel">Change Password</h4> 
-                </div>
-                <div class="modal-body" style="background-color:#eeeeee;">
-                    <form class="form-horizontal" method="post" name =  "changePass" action = "<?php echo htmlspecialchars('php/changePassword.php');?>" id = "changePass">
-                        <fieldset>
-
-
-                            <!-- Password input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label in3" for="curpass">Current Password</label>
-                                <div class="col-md-5">
-                                    <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md">
-                                </div>
-                            </div>
-
-                            <!-- Password input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label in3" for="newpass">New Password</label>
-                                <div class="col-md-5">
-                                    <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md">
-                                </div>
-                            </div>
-
-                            <!-- Password input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label in3" for="connewpass">Confirm New Password</label>
-                                <div class="col-md-5">
-                                    <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md">
-                                </div>
-                            </div>
-
-                        </fieldset>
-
-
-                </div>
-                <div class="modal-footer" style="background-color:#eeeeee;" >
-                    <a href="#" style="position:relative; float:left; color:#558188">Forgot password?</a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" name = "submit" class="btn btn-success" action = "<?php echo htmlspecialchars('php/changePassword.php');?>" id = "submit">Save changes</button>
-                </div>
-                </form>
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#FF9F85;">
+                <h4 class="modal-title head1" id="myModalLabel">Change Password</h4>
             </div>
+            <div class="modal-body" style="background-color:#eeeeee;">
+                <form class="form-horizontal" method="post" name =  "changePass" action = "<?php echo htmlspecialchars('php/changePassword.php');?>" id = "changePass">
+                    <fieldset>
+
+
+                        <!-- Password input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Current Password</label>
+                            <div class="col-md-5">
+                                <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters">
+
+                            </div>
+                        </div>
+
+                        <!-- Password input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="newpass">New Password</label>
+                            <div class="col-md-5">
+                                <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters"
+                                       data-bv-different="true"
+                                       data-bv-different-field="curpass"
+                                       data-bv-different-message="The old and new password cannot be the same" >
+                            </div>
+                        </div>
+
+                        <!-- Password input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="connewpass">Confirm New Password</label>
+                            <div class="col-md-5">
+                                <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md"
+                                       data-bv-notempty="true" data-bv-notempty-message="The confirm password is required and cannot be empty"
+                                       data-bv-identical="true" data-bv-identical-field="newpass" data-bv-identical-message="Passwords do not match"
+                                       data-bv-different="true" data-bv-different-field="curpass" data-bv-different-message="The old and password cannot be the same" >
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+
+            </div>
+            <div class="modal-footer" style="background-color:#eeeeee;" >
+                <a href="#" style="position:relative; float:left; color:#558188">Forgot password?</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" name = "submit" class="btn btn-success" action = "<?php echo htmlspecialchars('php/changePassword.php');?>" id = "submit">Save changes</button>
+            </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
   
 
@@ -546,13 +554,21 @@ header('Location: ../');
    <!-- </div>-->
 	
     <!-- /#wrapper -->
-
+<script type="text/javascript" src="./jquery1/jquery-1.8.3.min.js" charset="UTF-8"></script>
     <!-- jQuery Version 1.11.0 
     <script src="js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
+<script src="../js/bootstrapValidator.min.js"></script>
+<script>
+$(document).ready(function() {
+$('#changePass').bootstrapValidator({feedbackIcons: {
+valid: 'glyphicon glyphicon-ok',
+invalid: 'glyphicon glyphicon-remove',
+validating: 'glyphicon glyphicon-refresh'
+}});});
+</script>
     <!-- Menu Toggle Script -->
     
 

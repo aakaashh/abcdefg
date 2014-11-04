@@ -14,7 +14,7 @@
     <script type="text/javascript" src="IN/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="IN/css/bootstrap.min.css">
-
+    <link href="css/bootstrapValidator.css" rel="stylesheet" />
 
 
     <?php
@@ -179,15 +179,15 @@ top:55%;
 <body>
 <div class='preload login--container'>
 
-  <form class="form col-md-12 center-block" method="post" action="IN/php/loginCheck.php">
+  <form class="form col-md-12 center-block" method="post" action="IN/php/loginCheck.php" id="loginform">
   <div class='login--form'>
     <div class='login--username-container'>
       <label>Username</label>
-      <input autofocus placeholder='Username' type='text' name="username" required>
+      <input autofocus placeholder='Username' type='text' name="username" id="username" required >
     </div>
     <div class='login--password-container'>
       <label>Password</label>
-      <input placeholder='Password' type='password' name="password" required>
+      <input placeholder='Password' type='password' name="password"  id="password" required >
       <button class='js-toggle-login login--login-submit'>Login</button>
     </div>
   </div>
@@ -205,7 +205,7 @@ top:55%;
 <div class="proj-name">
 	<h1 id="proj-head">Placement Informer</h1>
 </div>
-  <script src='js/jquery.js'></script>
+<script type="text/javascript" src="IN/jquery1/jquery-1.8.3.min.js" charset="UTF-8"></script>
   <script src="js/index.js"></script>
 
 
