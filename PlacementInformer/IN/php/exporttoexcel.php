@@ -1,12 +1,5 @@
 <?php
 
-$mysqli = new mysqli("localhost", "root", "", "placementinformer"); // put "" for the password if you want to run them
-/* check connection */
-if ($mysqli->connect_errno) {
-printf("Connect failed: %s\n", $mysqli->connect_error);
-exit();
-}
-
 // Initialize session
 session_start();
 
@@ -14,6 +7,13 @@ session_start();
 if ((!isset($_SESSION['username']))||(!isset($_SESSION['password']) )){
     header('Location: ../');
 }
+
+header('Content-Type: text/csv; charset=utf-8');
+$company = $_GET['cname'] . '.csv';
+
+header('Content-Disposition: attachment; filename= '.$company);
+$output = fopen('php://output', 'w');
+fputcsv($output, array('USN', 'Name', 'Branch' , 'Email-ID' , 'Phone' , 'CGPA' , 'Tenth Percentage' , 'Twelth Percentage' , 'Diploma Percentage'));
 
 $host="localhost"; // Host name or server name
 $username="root"; // Mysql username
@@ -25,16 +25,30 @@ if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 $uname=$_SESSION['username'];
-$fname = '/tmp/'.$uname.time().'.csv';
+
+/*$fname = 'I:\temp\\'.$uname.time().'.csv';
 //this works perfectly in ubuntu ... for windows change path where file permissions are present
 unlink($fname);
-$cname=$_POST['companyname'];
+$cname=$_POST['companyname'];*/
 
-$q="SELECT 'USN','NAME','BRANCH','EMAIL','PHONE','CGPA','tenth percent','twelthpercent' UNION ALL SELECT s.USN, s.NAME, s.BRANCH, s.EMAIL, s.PHONE,s.CGPA, s.tenthPercent, s.twelthpercent INTO OUTFILE  '$fname' FIELDS TERMINATED BY  ',' OPTIONALLY ENCLOSED BY  '\"'  LINES TERMINATED BY  '\\n' FROM student as s , applied as a WHERE a.USN=s.USN and a.NAME = '$cname';";
-$res = mysqli_query($con,$q);
+/*$q="SELECT 'USN','NAME','BRANCH','EMAIL','PHONE','CGPA','tenth percent','twelthpercent' UNION ALL SELECT s.USN, s.NAME, s.BRANCH, s.EMAIL, s.PHONE,s.CGPA, s.tenthPercent, s.twelthpercent INTO OUTFILE  '$fname' FIELDS TERMINATED BY  ',' OPTIONALLY ENCLOSED BY  '\"'  LINES TERMINATED BY  '\\n' FROM student as s , applied as a WHERE a.USN=s.USN and a.NAME = '$cname';";
+$res = mysqli_query($con,$q);*/
 
+$q = "select s.* from student as s , applied as a where s.USN = a.USN";
+$result = mysqli_query($con,$q);
+if($result) {
+
+    while (($row = mysqli_fetch_assoc($result))) {
+//        $row = array('asd','1234','qwerr');
+        fputcsv($output, $row);
+    }
+    }
+else
+{
+    echo "error in query";
+}
 //print_r($con);
-$download_file = $cname.time().'.csv';
+/*$download_file = $cname.time().'.csv';
 // set the download rate limit (=> 20,5 kb/s)
 $download_rate=20.5;
 
@@ -59,7 +73,7 @@ if(file_exists($fname) && is_file($fname))
 }
 else {
     die('Error: The file '.$fname.' does not exist!');
-}
+}*/
 
 
 

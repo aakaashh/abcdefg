@@ -763,7 +763,8 @@ if ((isset($_SESSION['insert'])))
                 echo "<div class=\"col-md-6 col-sm-12 col-lg-6 col-xs-12 each in1\">To Be Sent Before:";
                 echo "<span class='in2' style='margin-left:10px;'>" . $db_field['lastDateReg'] . "</span>";
 
-                echo "<form action='php/exporttoexcel.php' method = 'post' target='_blank'>";
+                $actioon = "php/exporttoexcel.php?cname=" . $companyName;
+                echo "<form action= $actioon method = 'post' target='_blank'>";
                 $s= "<input type='hidden' name='companyname' id = 'companyname' value='".$companyName."'>";
 
                 echo $s;
