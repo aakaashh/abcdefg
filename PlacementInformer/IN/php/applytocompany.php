@@ -17,6 +17,10 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password']) )){
 }
 
 $mysqli = new mysqli("localhost", "root", "", "placementinformer"); // put "" for the password if you want to run them
+
+$appl=0;
+$_SESSION['appl'] = $appl;
+
 /* check connection */
 if ($mysqli->connect_errno) {
     printf("Connect failed: %s\n", $mysqli->connect_error);
@@ -58,20 +62,34 @@ if(mysqli_num_rows($r0)==0 ){
             echo '<pre>';
             sendmail($sa['EMAIL'], $sa['NAME'], 'Registration complete', $body);
             echo '</pre>';
+            $appl=1;
+            $_SESSION['appl'] = $appl;
+
             header('Location:../studentHome.php');
 //send sms - 2nd phase
 
         } else {
             echo 'Sorry! Could not register. Please Try again or contact administrator';
+            header('Location:../studentHome.php');
         }
 
     } else {
+                $appl=2;
+            $_SESSION['appl'] = $appl;
+
+
         echo 'Error : You have crossed the deadline. Please contact your placement coordinator.';
+        header('Location:../studentHome.php');
     }
 }
 else
 {
+                $appl=1;
+            $_SESSION['appl'] = $appl;
+
+
     echo 'You have already registered. Why do it again?';
+    header('Location:../studentHome.php');
 }
 
 

@@ -32,29 +32,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
     <script src='js/lib/moment.min.js'></script>
     <script src='js/lib/jquery.min.js'></script>
     <script src='js/fullcalendar.min.js'></script>
-    <?php
-
-    $host="localhost"; // Host name or server name
-    $username="root"; // Mysql username
-    $password=""; // Mysql password
-    $db_name="placementinformer"; // Database name
-    $tbl_name="student"; // Table name
-    $con = mysqli_connect("$host", "$username", "$password","$db_name");
-    if (mysqli_connect_errno()) {
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    }
-    session_start();
-    $uname =  $_SESSION['userNameT'];
-    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
-    if(!$result)
-    {
-        echo "error";
-    }
-    while($db_field = mysqli_fetch_assoc($result))
-    {
-        echo "title: '" . $db_field['NAME'] . "'";
-        echo "start: '" . $db_field['DATE'] . "'";
-    }echo ",";
+        <?php
 
     echo "<script>";
 
@@ -71,7 +49,28 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
     echo "center: 'title',";
     echo "right: 'month,basicWeek,basicDay'";
     echo "},";
-    echo "defaultDate: '2014-09-12',";
+
+    echo "eventRender: function (event, element) {";
+            echo "element.attr('href', 'javascript:void(0);');";
+            echo "element.click(function() {";
+                //set the modal values and open
+                echo "$('#companyHead').html(event.title);";
+                echo "$('#package').html(event.package);";
+                echo "$('#cgpa').html(event.cgpa);";
+                echo "$('#puc').html(event.puc);";
+                echo "$('#profile').html(event.profile);";
+                echo "$('#tenth').html(event.tenth);";
+                echo "$('#diploma').html(event.diploma);";
+                echo "$('#deadline').html(event.deadline);";
+                echo "$('#branches').html(event.branches);";
+              //  $('#modalBody').html(event.description);
+               // $('#eventUrl').attr('href',event.url);
+                echo "$('#companyModal').modal();";
+            echo "});";
+            echo "},";
+
+    $date = date('Y-m-d');
+    echo "defaultDate: '" . $date  . "',";
     echo "editable: true,";
     echo "eventLimit: true,"; // allow "more" link when too many events
     $host="localhost"; // Host name or server name
@@ -85,7 +84,9 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
     }
     session_start();
     $uname =  $_SESSION['userNameT'];
-    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
+    $result = mysqli_query($con,"SELECT c.* , d.DATE , j.PROFILE  FROM dateofvisit as d , company as c , jobprofile as j where c.NAME = d.NAME and c.NAME = j.NAME;");
+
+    //$result1 = mysqli_query($con,"SELECT * FROM company;");
     if(!$result)
     {
         echo "error";
@@ -96,7 +97,22 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
         echo "{";
         echo "title: '" . $db_field['NAME'] . "',";
         echo "start: '" . $db_field['DATE'] . "',";
-        echo "url: '" . "company.php?name=" . $db_field['NAME'] . "'";
+        echo "profile:'" . $db_field['PROFILE'] . "',";
+        echo "url: '" . "company.php?name=" . $db_field['NAME'] . "',";
+        echo "package:'" . $db_field['PACKAGE'] . "',";
+        echo "cgpa:'" . $db_field['GPACUTOFF'] . "',";
+        echo "tenth:'" . $db_field['TENTHCUTOFF'] . "',";
+        echo "puc:'" . $db_field['PUCCUTOFF'] . "',";
+        echo "diploma:'" . $db_field['DIPLOMACUTOFF'] . "',";
+        echo "deadline:'" . $db_field['lastDateReg'] . "',";
+        
+        $branchesArray = "";
+        $cname1 = $db_field['NAME'];
+        $result1 = mysqli_query($con,"select * from brancheseligible where name = '$cname1';");
+        while($db_field1 = mysqli_fetch_assoc($result1)) {
+                 $branchesArray .= $db_field1['branch'] . "  ";
+        }
+        echo "branches: '" . $branchesArray . "'";
         echo "},";
     }
     echo "]";
@@ -107,6 +123,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 
     echo "</script>";
     ?>
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -145,6 +162,116 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 </head>
 
 <body>
+
+
+    <div class="modal fade" id="companyModal" tabindex="-1" role="dialog" aria-labelledby="companyModal" aria-hidden="true" style="z-index:10000">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#7cc0bf;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                <h4 class="modal-title head1" id="companyHead"></h4>
+            </div>
+            <div class="modal-body" style="background-color:#eeeeee;">
+                    <fieldset>
+
+
+                        <!-- Password input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Package:</label>
+                            <div class="col-md-5">
+                                <div id="package" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Profile:</label>
+                            <div class="col-md-5">
+                                <div id="profile" >
+                                </div>
+                            </div>
+                        </div>     
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">CGPA Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="cgpa" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">PUC Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="puc" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Diploma Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="diploma" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">10th Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="tenth" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Deadline:</label>
+                            <div class="col-md-5">
+                                <div id="deadline" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Branches Eligible:</label>
+                            <div class="col-md-8">
+                                <div id="branches" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <br>                   <!-- Password input-->
+                        
+
+                    </fieldset>
+
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="navbar navbar-inverse" id="head-nav">
         <div class="container">
             <div class="navbar-header">
@@ -376,9 +503,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 </div>
 
 
-
-
-    <script type="text/javascript" src="./jquery1/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<!-- <script type="text/javascript" src="./jquery1/jquery-1.8.3.min.js" charset="UTF-8"></script>
 
 <!-- jQuery Version 1.11.0 
 <script src="js/jquery-1.11.0.js"></script>

@@ -44,28 +44,6 @@ header('Location: ../');
 <script src='js/fullcalendar.min.js'></script>
     <?php
 
-    $host="localhost"; // Host name or server name
-    $username="root"; // Mysql username
-    $password=""; // Mysql password
-    $db_name="placementinformer"; // Database name
-    $tbl_name="student"; // Table name
-    $con = mysqli_connect("$host", "$username", "$password","$db_name");
-    if (mysqli_connect_errno()) {
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    }
-    session_start();
-    $uname =  $_SESSION['userNameT'];
-    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
-    if(!$result)
-    {
-        echo "error";
-    }
-    while($db_field = mysqli_fetch_assoc($result))
-    {
-        echo "title: '" . $db_field['NAME'] . "'";
-        echo "start: '" . $db_field['DATE'] . "'";
-    }echo ",";
-
     echo "<script>";
 
     echo "$(document).ready(function() {";
@@ -81,8 +59,29 @@ header('Location: ../');
     echo "center: 'title',";
     echo "right: 'month,basicWeek,basicDay'";
     echo "},";
-    echo "defaultDate: '2014-09-12',";
-    echo "editable: true,";
+
+    echo "eventRender: function (event, element) {";
+            echo "element.attr('href', 'javascript:void(0);');";
+            echo "element.click(function() {";
+                //set the modal values and open
+                echo "$('#companyHead').html(event.title);";
+                echo "$('#package').html(event.package);";
+                echo "$('#cgpa').html(event.cgpa);";
+                echo "$('#puc').html(event.puc);";
+                echo "$('#profile').html(event.profile);";
+                echo "$('#tenth').html(event.tenth);";
+                echo "$('#diploma').html(event.diploma);";
+                echo "$('#deadline').html(event.deadline);";
+                echo "$('#branches').html(event.branches);";
+              //  $('#modalBody').html(event.description);
+               // $('#eventUrl').attr('href',event.url);
+                echo "$('#companyModal').modal();";
+            echo "});";
+        	echo "},";
+
+    $date = date('Y-m-d');
+    echo "defaultDate: '" . $date  . "',";
+	echo "editable: true,";
     echo "eventLimit: true,"; // allow "more" link when too many events
     $host="localhost"; // Host name or server name
     $username="root"; // Mysql username
@@ -95,7 +94,9 @@ header('Location: ../');
     }
     session_start();
     $uname =  $_SESSION['userNameT'];
-    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
+    $result = mysqli_query($con,"SELECT c.* , d.DATE , j.PROFILE  FROM dateofvisit as d , company as c , jobprofile as j where c.NAME = d.NAME and c.NAME = j.NAME;");
+
+    //$result1 = mysqli_query($con,"SELECT * FROM company;");
     if(!$result)
     {
         echo "error";
@@ -106,7 +107,22 @@ header('Location: ../');
         echo "{";
         echo "title: '" . $db_field['NAME'] . "',";
         echo "start: '" . $db_field['DATE'] . "',";
-        echo "url: '" . "company.php?name=" . $db_field['NAME'] . "'";
+        echo "profile:'" . $db_field['PROFILE'] . "',";
+        echo "url: '" . "company.php?name=" . $db_field['NAME'] . "',";
+        echo "package:'" . $db_field['PACKAGE'] . "',";
+        echo "cgpa:'" . $db_field['GPACUTOFF'] . "',";
+        echo "tenth:'" . $db_field['TENTHCUTOFF'] . "',";
+        echo "puc:'" . $db_field['PUCCUTOFF'] . "',";
+        echo "diploma:'" . $db_field['DIPLOMACUTOFF'] . "',";
+        echo "deadline:'" . $db_field['lastDateReg'] . "',";
+        
+        $branchesArray = "";
+        $cname1 = $db_field['NAME'];
+        $result1 = mysqli_query($con,"select * from brancheseligible where name = '$cname1';");
+        while($db_field1 = mysqli_fetch_assoc($result1)) {
+        		 $branchesArray .= $db_field1['branch'] . "  ";
+        }
+        echo "branches: '" . $branchesArray . "'";
         echo "},";
     }
     echo "]";
@@ -146,11 +162,58 @@ header('Location: ../');
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 	<link href="gener/genericons.css" rel="stylesheet">
-	<link href="css/index-css/main.css" rel="stylesheet" />    
+	<link href="css/index-css/main.css" rel="stylesheet" />
+
+	<link rel="stylesheet" href="css/amaran.min.css">
+    <script src="js/jquery.amaran.min.js"></script>
+
+
+
+    <?php
+    if ((isset($_SESSION['appl'])))
+    {
+
+        $appl=$_SESSION['appl'];
+        echo "$appl";
+        if($appl==1)
+        {
+        	echo "in";
+            echo"<script>";
+            echo'$(document).ready(function() {';
+            echo'$(function(){';
+            echo'$.amaran({content:{bgcolor:"#27ae60", color:"#fff","message":"Applied for the company"}, theme:"colorful", delay:7000 });';
+            echo'});';
+            echo'});';
+            echo "</script>";
+        }else if($appl==2){
+            echo"<script>";
+            echo'$(document).ready(function() {';
+            echo'$(function(){';
+            echo'$.amaran({content:{{bgcolor:"#ff3333", color:"#fff","message":"U have crossed the deadline!"}, theme:"colorful", delay:7000});';
+            echo'});';
+            echo'});';
+            echo "</script>";
+        }else{
+            echo"<script>";
+            echo'$(document).ready(function() {';
+            echo'$(function(){';
+            echo'$.amaran({content:{{bgcolor:"#ff3333", color:"#fff","message":"Apply to company failed. Try again!"}, theme:"colorful", delay:7000});';
+            echo'});';
+            echo'});';
+            echo "</script>";
+        }
+        unset($_SESSION['appl']);
+
+
+    }
+
+    ?>
+    
     
 </head>
 
 <body>
+
 
 <!--    <div id="wrapper" class="toggled">
 
@@ -262,6 +325,114 @@ header('Location: ../');
         <!-- /#sidebar-wrapper
 		<div id="page-content-wrapper">
 -->
+
+
+
+
+
+	<div class="modal fade" id="companyModal" tabindex="-1" role="dialog" aria-labelledby="companyModal" aria-hidden="true" style="z-index:10000">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#7cc0bf;">
+            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                <h4 class="modal-title head1" id="companyHead"></h4>
+            </div>
+            <div class="modal-body" style="background-color:#eeeeee;">
+                    <fieldset>
+
+
+                        <!-- Password input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Package:</label>
+                            <div class="col-md-5">
+                                <div id="package" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+						<div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Profile:</label>
+                            <div class="col-md-5">
+                                <div id="profile" >
+                                </div>
+                            </div>
+                        </div>     
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">CGPA Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="cgpa" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">PUC Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="puc" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Diploma Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="diploma" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">10th Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="tenth" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Deadline:</label>
+                            <div class="col-md-5">
+                                <div id="deadline" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Branches Eligible:</label>
+                            <div class="col-md-8">
+                                <div id="branches" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <br>                   <!-- Password input-->
+                        
+
+                    </fieldset>
+
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+	
+
+
+
 		<div class="navbar navbar-inverse" id="head-nav" >
         <div class="container">
             <div class="navbar-header">
