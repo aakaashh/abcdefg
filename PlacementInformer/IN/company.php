@@ -41,87 +41,81 @@ header('Location: ../');
 <script src='js/lib/moment.min.js'></script>
 <script src='js/lib/jquery.min.js'></script>
 <script src='js/fullcalendar.min.js'></script>
-<script>
+    <?php
 
-	$(document).ready(function() {
-		
-		$('#calenderModal').on('shown.bs.modal', function () {
-  			 $("#calendar").fullCalendar('render');
-		});
+    $host="localhost"; // Host name or server name
+    $username="root"; // Mysql username
+    $password=""; // Mysql password
+    $db_name="placementinformer"; // Database name
+    $tbl_name="student"; // Table name
+    $con = mysqli_connect("$host", "$username", "$password","$db_name");
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+    session_start();
+    $uname =  $_SESSION['userNameT'];
+    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
+    if(!$result)
+    {
+        echo "error";
+    }
+    while($db_field = mysqli_fetch_assoc($result))
+    {
+        echo "title: '" . $db_field['NAME'] . "'";
+        echo "start: '" . $db_field['DATE'] . "'";
+    }echo ",";
 
-		$('#calendar').fullCalendar({
-			
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,basicWeek,basicDay'
-			},
-			defaultDate: '2014-09-12',
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			events: [
-				{
-					title: 'All Day Event',
-					start: '2014-09-01'
-				},
-				{
-					title: 'Long Event',
-					start: '2014-09-07',
-					end: '2014-09-10'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2014-09-09T16:00:00'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2014-09-16T16:00:00'
-				},
-				{
-					title: 'Conference',
-					start: '2014-09-11',
-					end: '2014-09-13'
-				},
-				{
-					title: 'Meeting',
-					start: '2014-09-12T10:30:00',
-					end: '2014-09-12T12:30:00'
-				},
-				{
-					title: 'Lunch',
-					start: '2014-09-12T12:00:00'
-				},
-				{
-					title: 'Meeting',
-					start: '2014-09-12T14:30:00'
-				},
-				{
-					title: 'Happy Hour',
-					start: '2014-09-12T17:30:00'
-				},
-				{
-					title: 'Dinner',
-					start: '2014-09-12T20:00:00'
-				},
-				{
-					title: 'Birthday Party',
-					start: '2014-09-13T07:00:00'
-				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2014-09-28'
-				}
-			]
-		});
+    echo "<script>";
 
-		
-		
-	});
+    echo "$(document).ready(function() {";
 
-</script>
+    echo "$('#calenderModal').on('shown.bs.modal', function () {";
+    echo "$(\"#calendar\").fullCalendar('render');";
+    echo "});";
+
+    echo "$('#calendar').fullCalendar({";
+
+    echo "header: {";
+    echo "left: 'prev,next today',";
+    echo "center: 'title',";
+    echo "right: 'month,basicWeek,basicDay'";
+    echo "},";
+    echo "defaultDate: '2014-09-12',";
+    echo "editable: true,";
+    echo "eventLimit: true,"; // allow "more" link when too many events
+    $host="localhost"; // Host name or server name
+    $username="root"; // Mysql username
+    $password=""; // Mysql password
+    $db_name="placementinformer"; // Database name
+    $tbl_name="student"; // Table name
+    $con = mysqli_connect("$host", "$username", "$password","$db_name");
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+    session_start();
+    $uname =  $_SESSION['userNameT'];
+    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
+    if(!$result)
+    {
+        echo "error";
+    }
+
+    echo "events: [";
+    while($db_field = mysqli_fetch_assoc($result)) {
+        echo "{";
+        echo "title: '" . $db_field['NAME'] . "',";
+        echo "start: '" . $db_field['DATE'] . "',";
+        echo "url: '" . "company.php?name=" . $db_field['NAME'] . "'";
+        echo "},";
+    }
+    echo "]";
+    echo "});";
+
+
+    echo "});";
+
+    echo "</script>";
+    ?>
 
 
     <title>Placement Informer</title>
