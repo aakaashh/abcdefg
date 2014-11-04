@@ -159,6 +159,73 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
     <link href="css/register-new-css/main.css" rel="stylesheet" />
     <link href="../css/bootstrapValidator.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="css/amaran.min.css">
+    <script src="js/jquery.amaran.min.js"></script>
+
+
+
+    <?php
+    if ((isset($_SESSION['reex'])))
+    {
+
+        $reex=$_SESSION['reex'];
+//        echo "$appl";
+        if($reex==1)
+        {
+//          echo "in";
+            echo"<script>";
+            echo'$(document).ready(function() {';
+            echo'$(function(){';
+            echo'$.amaran({content:{bgcolor:"#27ae60", color:"#fff","message":"Registration mails sent"}, theme:"colorful", delay:7000 });';
+            echo'});';
+            echo'});';
+            echo "</script>";
+        }else{
+            echo"<script>";
+            echo'$(document).ready(function() {';
+            echo'$(function(){';
+            echo'$.amaran({content:{{bgcolor:"#ff3333", color:"#fff","message":"Failed. Try again!"}, theme:"colorful", delay:7000});';
+            echo'});';
+            echo'});';
+            echo "</script>";
+        }
+        unset($_SESSION['reex']);
+
+
+    }
+
+    if ((isset($_SESSION['retf'])))
+    {
+
+        $retf=$_SESSION['retf'];
+//        echo "$appl";
+        if($retf==1)
+        {
+//          echo "in";
+            echo"<script>";
+            echo'$(document).ready(function() {';
+            echo'$(function(){';
+            echo'$.amaran({content:{bgcolor:"#27ae60", color:"#fff","message":"Registration mail sent"}, theme:"colorful", delay:7000 });';
+            echo'});';
+            echo'});';
+            echo "</script>";
+        }else{
+            echo"<script>";
+            echo'$(document).ready(function() {';
+            echo'$(function(){';
+            echo'$.amaran({content:{{bgcolor:"#ff3333", color:"#fff","message":"Failed. Try again!"}, theme:"colorful", delay:7000});';
+            echo'});';
+            echo'});';
+            echo "</script>";
+        }
+        unset($_SESSION['retf']);
+
+
+    }
+
+    ?>
+    
+
 </head>
 
 <body>

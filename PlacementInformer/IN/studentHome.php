@@ -174,10 +174,10 @@ header('Location: ../');
     {
 
         $appl=$_SESSION['appl'];
-        echo "$appl";
+//        echo "$appl";
         if($appl==1)
         {
-        	echo "in";
+//        	echo "in";
             echo"<script>";
             echo'$(document).ready(function() {';
             echo'$(function(){';

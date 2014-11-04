@@ -11,6 +11,10 @@ error_reporting(E_ALL);
 
 session_start();
 
+$retf=0;
+$_SESSION['retf'] = $retf;
+
+
 // Check, if username session is NOT set then this page will jump to login page
 if ((!isset($_SESSION['username']))||(!isset($_SESSION['password']) )){
     header('Location: ../..');
@@ -34,7 +38,9 @@ if ($mysqli->connect_errno) {
 if($retval1){
 
 sendvmail($usn,$name,$email,$code);
-    header('Location: ../home-pc.php');
+$retf=1;
+$_SESSION['retf'] = $retf;
+    header('Location: ../register-new.php');
 }
 
 ?>
