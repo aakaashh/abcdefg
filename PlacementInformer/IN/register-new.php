@@ -146,7 +146,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link href="gener/genericons.css" rel="stylesheet">
     <link href="css/register-new-css/main.css" rel="stylesheet" />
-
+    <link href="../css/bootstrapValidator.css" rel="stylesheet" />
 
 </head>
 
@@ -205,7 +205,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="background-color:#FF9F85;">
-                    <h4 class="modal-title head1" id="myModalLabel">Change Password</h4> 
+                    <h4 class="modal-title head1" id="myModalLabel">Change Password</h4>
                 </div>
                 <div class="modal-body" style="background-color:#eeeeee;">
                     <form class="form-horizontal" method="post" name =  "changePass" action = "<?php echo htmlspecialchars('php/changePassword.php');?>" id = "changePass">
@@ -216,7 +216,8 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
                             <div class="form-group">
                                 <label class="col-md-4 control-label in3" for="curpass">Current Password</label>
                                 <div class="col-md-5">
-                                    <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md">
+                                    <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters">
+
                                 </div>
                             </div>
 
@@ -224,7 +225,10 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
                             <div class="form-group">
                                 <label class="col-md-4 control-label in3" for="newpass">New Password</label>
                                 <div class="col-md-5">
-                                    <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md">
+                                    <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters"
+                                           data-bv-different="true"
+                                           data-bv-different-field="curpass"
+                                           data-bv-different-message="The old and new password cannot be the same" >
                                 </div>
                             </div>
 
@@ -232,7 +236,10 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
                             <div class="form-group">
                                 <label class="col-md-4 control-label in3" for="connewpass">Confirm New Password</label>
                                 <div class="col-md-5">
-                                    <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md">
+                                    <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md"
+                                           data-bv-notempty="true" data-bv-notempty-message="The confirm password is required and cannot be empty"
+                                           data-bv-identical="true" data-bv-identical-field="newpass" data-bv-identical-message="Passwords do not match"
+                                           data-bv-different="true" data-bv-different-field="curpass" data-bv-different-message="The old and password cannot be the same" >
                                 </div>
                             </div>
 
@@ -249,7 +256,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
             </div>
         </div>
     </div>
-</div>
+    </div>
   
 
     <div class="modal fade" id="calenderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -295,7 +302,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 <div class="form-group">
   <label class="col-md-4 in1 control-label" for="file">Excel upload</label>
   <div class="col-md-4">
-    <input id="file" name="file" class="input-file in4" type="file">
+    <input id="file" name="file" class="input-file in4" type="file" required>
   </div>
 </div>
 
@@ -326,7 +333,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 <div class="form-group">
   <label class="col-md-4 in1 control-label" for="name">Name</label>  
   <div class="col-md-6">
-  <input id="name" name="name" type="text" placeholder="Name" class="form-control in4 input-md">
+  <input id="name" name="name" type="text" placeholder="Name" class="form-control in4 input-md" data-bv-notempty="true" data-bv-notempty-message=" Enter Student Name" >
     
   </div>
 </div>
@@ -335,7 +342,11 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 <div class="form-group">
   <label class="col-md-4 in1 control-label" for="usn">USN</label>  
   <div class="col-md-6">
-  <input id="usn" name="usn" type="text" placeholder="USN" class="form-control in4 input-md">
+  <input id="usn" name="usn" type="text" placeholder="USN" class="form-control in4 input-md" data-bv-notempty="true" data-bv-notempty-message="Enter valid USN"
+
+         data-bv-regexp="true"
+         data-bv-regexp-regexp="^1RV[0-9]{2}[A-Z]{2}[0-9]{3)$"
+         data-bv-regexp-message="Enter Valid USN" >
     
   </div>
 </div>
@@ -366,15 +377,24 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 
 
 
-
+    <script type="text/javascript" src="./jquery1/jquery-1.8.3.min.js" charset="UTF-8"></script>
 
 <!-- jQuery Version 1.11.0 
 <script src="js/jquery-1.11.0.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#changePass').bootstrapValidator({feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            }});
 
-
+        });
+    </script>
+    <script src="../js/bootstrapValidator.min.js"></script>
 </body>
 
 </html>
