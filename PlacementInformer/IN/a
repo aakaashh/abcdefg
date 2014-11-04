@@ -262,8 +262,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                         <div class="form-group">
                             <label class="col-md-4 control-label in3" for="curpass">Current Password</label>
                             <div class="col-md-5">
-                                <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters">
-
+                                <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md">
                             </div>
                         </div>
 
@@ -271,10 +270,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                         <div class="form-group">
                             <label class="col-md-4 control-label in3" for="newpass">New Password</label>
                             <div class="col-md-5">
-                                <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters"
-                                       data-bv-different="true"
-                                       data-bv-different-field="curpass"
-                                       data-bv-different-message="The old and new password cannot be the same" >
+                                <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md">
                             </div>
                         </div>
 
@@ -282,10 +278,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                         <div class="form-group">
                             <label class="col-md-4 control-label in3" for="connewpass">Confirm New Password</label>
                             <div class="col-md-5">
-                                <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md"
-                                       data-bv-notempty="true" data-bv-notempty-message="The confirm password is required and cannot be empty"
-                                       data-bv-identical="true" data-bv-identical-field="newpass" data-bv-identical-message="Passwords do not match"
-                                       data-bv-different="true" data-bv-different-field="curpass" data-bv-different-message="The old and password cannot be the same" >
+                                <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md">
                             </div>
                         </div>
 
@@ -303,6 +296,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
     </div>
 </div>
 </div>
+
 
 <div class="modal fade" id="calenderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" >

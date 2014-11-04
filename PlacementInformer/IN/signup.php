@@ -141,7 +141,7 @@ if(isset($passkey)) {
 
                             <div class="col-md-5">
                                 <input id="name" name="name" type="text" placeholder="Name"
-                                       class="form-control input-md"
+                                       class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="What's your Name?"
                                        value='<?php echo "{$name}" ?>'>
 
                             </div>
@@ -152,7 +152,7 @@ if(isset($passkey)) {
                             <label class="col-md-4 control-label" for="email">Email id</label>
 
                             <div class="col-md-5">
-                                <input id="email" name="email" type="text" placeholder="Email id"
+                                <input id="email" name="email" type="email" placeholder="Email id" data-bv-emailaddress-message="The value is not a valid email address"
                                        class="form-control input-md"
                                        value='<?php echo "{$email}" ?>'>
 
@@ -160,28 +160,29 @@ if(isset($passkey)) {
                         </div>
 
                         <!-- Password input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="password">Password</label>
-
+                        < <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="password">New Password</label>
                             <div class="col-md-5">
-                                <input id="password" name="password" type="password" placeholder="Password"
-                                       class="form-control input-md">
-
+                                <input id="password" name="password" type="password" placeholder="New Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters"
+                                       data-bv-different="true"
+                                       data-bv-different-field="curpass"
+                                       data-bv-different-message="The old and new password cannot be the same" >
                             </div>
                         </div>
 
                         <!-- Password input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="confirmpass">Confirm Password</label>
-
+                            <label class="col-md-4 control-label in3" for="confirmpass">Confirm New Password</label>
                             <div class="col-md-5">
-                                <input id="confirmpass" name="confirmpass" type="password"
-                                       placeholder="Confirm Password"
-                                       class="form-control input-md">
+                                <input id="confirmpass" name="confirmpass" type="password" placeholder="Confirm New Password" class="form-control input-md"
+                                       data-bv-notempty="true" data-bv-notempty-message="The confirm password is required and cannot be empty"
+                                       data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="Passwords do not match"
 
                             </div>
                         </div>
-
+                        <br>
+                        <br>
+                        <br>
 
                         <!-- Text input-->
                         <div class="form-group">
@@ -206,7 +207,7 @@ if(isset($passkey)) {
 
                             <div class="col-md-5">
                                 <input id="phone" name="phone" type="text" placeholder="Phone No"
-                                       class="form-control input-md">
+                                       class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="What's your Phone number?" data-bv-phone="true" data-bv-phone-country="US" data-bv-phone-message="Enter valid phone number">
 
                             </div>
                         </div>
@@ -215,43 +216,76 @@ if(isset($passkey)) {
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="tenth">10th %</label>
 
-                            <div class="col-md-2">
-                                <input id="tenth" name="tenth" type="text" placeholder="" class="form-control input-md">
+                            <div class="col-md-3">
+                                <input id="tenth" name="tenth" type="text" placeholder="" class="form-control input-md" data-bv-greaterthan="true"
+                                       data-bv-greaterthan-value="0"
+                                       data-bv-lessthan="true"
+                                       data-bv-lessthan-value="100" data-bv-notempty="true" data-bv-notempty-message="Field cannot be empty">
+                                
+
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+
+                        <div class="form-group">
+
+                            <label class="col-md-4 in1 control-label" for="radiocheck">Select an option</label>
+                            <div class="col-md-5">
+                                <label class="radio-inline">
+                                    <input type="radio" id="pucrb" name="pucdip" value="1" onclick="hidedata();">12th Standard</label>
+                                <label class="radio-inline"><input type="radio" id="diprb" name="pucdip" value="2" onclick="hidedata();">Diploma</label>
+                            </div>
+                        </div>
+                        <!-- Text input-->
+                        <div class="form-group" id="t1">
+                            <label class="col-md-4  in1 control-label" for="twelfth">12th % (N/A)</label>
+                            <div class="col-md-3">
+                                <input id="twelfth" name="twelfth" type="text"  class="form-control input-md in4"
+                  data-bv-greaterthan="true"
+                  data-bv-greaterthan-value="0"
+                  data-bv-lessthan="true"
+                  data-bv-lessthan-value="100" data-bv-notempty="true" data-bv-notempty-message="Field cannot be empty">
+                                
+
+
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group" id ="t2">
+                            <label class="col-md-4  in1 control-label" for="diploma">Diploma % (N/A)</label>
+                            <div class="col-md-3">
+                                <input id="diploma" name="diploma" type="text"  class="form-control input-md in4"
+                  data-bv-greaterthan="true"
+                  data-bv-greaterthan-value="0"
+                  data-bv-lessthan="true"
+                  data-bv-lessthan-value="100" data-bv-notempty="true" data-bv-notempty-message="Field cannot be empty">
+                                
 
                             </div>
                         </div>
 
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="twelth">12th % (N/A)</label>
+                            <label class="col-md-4 in1  control-label" for="cgpa">CGPA</label>
+                            <div class="col-md-3">
+                                <input id="cgpa" name="cgpa" type="text"  class="form-control input-md in4"
 
-                            <div class="col-md-2">
-                                <input id="twelth" name="twelth" type="text" placeholder=""
-                                       class="form-control input-md">
+                  data-bv-greaterthan="true"
+                  data-bv-greaterthan-value="0"
+                  data-bv-lessthan="true"
+                  data-bv-lessthan-value="10" data-bv-notempty="true" data-bv-notempty-message="Field cannot be empty">
 
-                            </div>
-                        </div>
 
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="diploma">Diploma % (N/A)</label>
-
-                            <div class="col-md-2">
-                                <input id="diploma" name="diploma" type="text" placeholder=""
-                                       class="form-control input-md">
 
                             </div>
                         </div>
-
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="cgpa">CGPA</label>
-
-                            <div class="col-md-2">
-                                <input id="cgpa" name="cgpa" type="text" placeholder="" class="form-control input-md">
-
-                            </div>
-                        </div>
+                        
+                        
+                        
+                        
+                        
 
                         <!-- Button -->
                         <div class="form-group">
@@ -274,7 +308,39 @@ if(isset($passkey)) {
             <!-- Bootstrap Core JavaScript -->
             <script src="js/bootstrap.min.js"></script>
 
+            <script src="../js/bootstrapValidator.min.js"></script>
+            <script>
+            $(document).ready(function() {
+                $('#signup').bootstrapValidator({
+                container:'tooltip',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                }});});
+            var dipval= 0,pucval=0;
+            pucval=$('#twelfth').val();
+            dipval=$('#diploma').val();
+            function hidedata() {
 
+                var selected = $("input[name=pucdip]:checked").val();
+
+                if(selected==1)
+                {
+                    $('#diploma').val(100);
+                    $('#t2').hide();
+                    $('#twelfth').val(pucval);
+                    $('#t1').show();
+                }
+                else if(selected==2)
+                {
+                    $('#twelfth').val(100);
+                    $('#t1').hide();
+                    $('#diploma').val(dipval);
+                    $('#t2').show();
+                }
+            }
+            </script>
             </body>
 
             </html>
@@ -292,7 +358,7 @@ if(isset($passkey)) {
 }
 else {
     echo "NO passkey";
-
+    header('Location:../');
 }
 
 

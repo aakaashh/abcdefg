@@ -27,92 +27,86 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 
 <head>
 
-<link href='css/fullcalendar.css' rel='stylesheet' />
-<link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='js/lib/moment.min.js'></script>
-<script src='js/lib/jquery.min.js'></script>
-<script src='js/fullcalendar.min.js'></script>
-<script>
+    <link href='css/fullcalendar.css' rel='stylesheet' />
+    <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <script src='js/lib/moment.min.js'></script>
+    <script src='js/lib/jquery.min.js'></script>
+    <script src='js/fullcalendar.min.js'></script>
+    <?php
 
-  $(document).ready(function() {
-    
-    $('#calenderModal').on('shown.bs.modal', function () {
-         $("#calendar").fullCalendar('render');
-    });
+    $host="localhost"; // Host name or server name
+    $username="root"; // Mysql username
+    $password=""; // Mysql password
+    $db_name="placementinformer"; // Database name
+    $tbl_name="student"; // Table name
+    $con = mysqli_connect("$host", "$username", "$password","$db_name");
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+    session_start();
+    $uname =  $_SESSION['userNameT'];
+    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
+    if(!$result)
+    {
+        echo "error";
+    }
+    while($db_field = mysqli_fetch_assoc($result))
+    {
+        echo "title: '" . $db_field['NAME'] . "'";
+        echo "start: '" . $db_field['DATE'] . "'";
+    }echo ",";
 
-    $('#calendar').fullCalendar({
-      
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,basicWeek,basicDay'
-      },
-      defaultDate: '2014-09-12',
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2014-09-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2014-09-07',
-          end: '2014-09-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2014-09-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2014-09-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2014-09-11',
-          end: '2014-09-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2014-09-12T10:30:00',
-          end: '2014-09-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2014-09-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2014-09-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2014-09-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2014-09-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2014-09-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2014-09-28'
-        }
-      ]
-    });
+    echo "<script>";
 
-    
-    
-  });
+    echo "$(document).ready(function() {";
 
-</script>
+    echo "$('#calenderModal').on('shown.bs.modal', function () {";
+    echo "$(\"#calendar\").fullCalendar('render');";
+    echo "});";
+
+    echo "$('#calendar').fullCalendar({";
+
+    echo "header: {";
+    echo "left: 'prev,next today',";
+    echo "center: 'title',";
+    echo "right: 'month,basicWeek,basicDay'";
+    echo "},";
+    echo "defaultDate: '2014-09-12',";
+    echo "editable: true,";
+    echo "eventLimit: true,"; // allow "more" link when too many events
+    $host="localhost"; // Host name or server name
+    $username="root"; // Mysql username
+    $password=""; // Mysql password
+    $db_name="placementinformer"; // Database name
+    $tbl_name="student"; // Table name
+    $con = mysqli_connect("$host", "$username", "$password","$db_name");
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+    session_start();
+    $uname =  $_SESSION['userNameT'];
+    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
+    if(!$result)
+    {
+        echo "error";
+    }
+
+    echo "events: [";
+    while($db_field = mysqli_fetch_assoc($result)) {
+        echo "{";
+        echo "title: '" . $db_field['NAME'] . "',";
+        echo "start: '" . $db_field['DATE'] . "',";
+        echo "url: '" . "company.php?name=" . $db_field['NAME'] . "'";
+        echo "},";
+    }
+    echo "]";
+    echo "});";
+
+
+    echo "});";
+
+    echo "</script>";
+    ?>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -268,7 +262,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
             </div>
             <div class="modal-body" style="background-color:#eeeeee;">
                 
-          <div id='calendar'></div>
+                 <div id='calendar'></div>
             </div>
           
     </div>
@@ -342,11 +336,17 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 <div class="form-group">
   <label class="col-md-4 in1 control-label" for="usn">USN</label>  
   <div class="col-md-6">
-  <input id="usn" name="usn" type="text" placeholder="USN" class="form-control in4 input-md" data-bv-notempty="true" data-bv-notempty-message="Enter valid USN"
+  <input id="usn" name="usn" type="text" placeholder="USN" class="form-control in4 input-md"
+         data-bv-notempty="true"
+         data-bv-notempty-message="Enter valid USN"
 
-         data-bv-regexp="true"
-         data-bv-regexp-regexp="^1RV[0-9]{2}[A-Z]{2}[0-9]{3)$"
-         data-bv-regexp-message="Enter Valid USN" >
+         data-bv-regexp-regexp="^1RV[0-9]{2}[A-Z]{2}[0-9]{3}$"
+         data-bv-regexp-message="Enter Valid USN"
+         data-bv-stringlength="true"
+         data-bv-stringlength-max="10"
+         data-bv-stringlength-min="10"
+         data-bv-stringlength-message="Enter Valid USN"
+         data-bv-regexp="true">
     
   </div>
 </div>
@@ -355,7 +355,8 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 <div class="form-group">
   <label class="col-md-4 in1 control-label" for="email">Email id</label>  
   <div class="col-md-6">
-  <input id="email" name="email" type="text" placeholder="Email id" class="in4 form-control input-md">
+  <input id="email" name="email" type="email" placeholder="Email id" class="in4 form-control input-md"
+         data-bv-emailaddress-message="The value is not a valid email address">
     
   </div>
 </div>
@@ -386,7 +387,9 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 <script src="js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#changePass').bootstrapValidator({feedbackIcons: {
+            $('#register-thro-form').bootstrapValidator({
+            container:'tooltip',
+            feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
