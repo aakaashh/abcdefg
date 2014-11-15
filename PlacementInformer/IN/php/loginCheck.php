@@ -32,8 +32,6 @@ if ($result->num_rows == 1) {
     header("location: ../studentHome.php"); // Redirecting To Other Page
 }
 else {
-
-
     $_SESSION['err']="login";
     header('Location: ../..');
 }

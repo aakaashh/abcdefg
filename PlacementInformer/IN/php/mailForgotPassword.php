@@ -17,7 +17,7 @@ while($db_fileld = mysqli_fetch_assoc($result))
 {
     $oldPass = $db_fileld['password'];
 }
-$url = "http://localhost/PlacementInformer%200.0.1/IN/forgotPassword.php?password=".$oldPass;
+$url = "http://localhost/abcdefg/PlacementInformer/IN/forgotPassword.php?password=".$oldPass;
 
 $result1 = $mysqli->query("SELECT * FROM `student` where USN = '$uname';");
 while($db_fileld = mysqli_fetch_assoc($result1))

@@ -19,81 +19,97 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
 <script src='js/lib/moment.min.js'></script>
 <script src='js/lib/jquery.min.js'></script>
 <script src='js/fullcalendar.min.js'></script>
-        <?php
+    <?php
 
-        $host="localhost"; // Host name or server name
-        $username="root"; // Mysql username
-        $password=""; // Mysql password
-        $db_name="placementinformer"; // Database name
-        $tbl_name="student"; // Table name
-        $con = mysqli_connect("$host", "$username", "$password","$db_name");
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-        }
-        session_start();
-        $uname =  $_SESSION['userNameT'];
-        $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
-        if(!$result)
-        {
-            echo "error";
-        }
-        while($db_field = mysqli_fetch_assoc($result))
-        {
-            echo "title: '" . $db_field['NAME'] . "'";
-            echo "start: '" . $db_field['DATE'] . "'";
-        }echo ",";
+    echo "<script>";
 
-        echo "<script>";
+    echo "$(document).ready(function() {";
 
-        echo "$(document).ready(function() {";
+    echo "$('#calenderModal').on('shown.bs.modal', function () {";
+    echo "$(\"#calendar\").fullCalendar('render');";
+    echo "});";
 
-        echo "$('#calenderModal').on('shown.bs.modal', function () {";
-        echo "$(\"#calendar\").fullCalendar('render');";
-        echo "});";
+    echo "$('#calendar').fullCalendar({";
 
-        echo "$('#calendar').fullCalendar({";
+    echo "header: {";
+    echo "left: 'prev,next today',";
+    echo "center: 'title',";
+    echo "right: 'month,basicWeek,basicDay'";
+    echo "},";
 
-        echo "header: {";
-        echo "left: 'prev,next today',";
-        echo "center: 'title',";
-        echo "right: 'month,basicWeek,basicDay'";
-        echo "},";
-        echo "defaultDate: '2014-09-12',";
-        echo "editable: true,";
-        echo "eventLimit: true,"; // allow "more" link when too many events
-        $host="localhost"; // Host name or server name
-        $username="root"; // Mysql username
-        $password=""; // Mysql password
-        $db_name="placementinformer"; // Database name
-        $tbl_name="student"; // Table name
-        $con = mysqli_connect("$host", "$username", "$password","$db_name");
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-        }
-        session_start();
-        $uname =  $_SESSION['userNameT'];
-        $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
-        if(!$result)
-        {
-            echo "error";
-        }
-
-        echo "events: [";
-        while($db_field = mysqli_fetch_assoc($result)) {
-            echo "{";
-            echo "title: '" . $db_field['NAME'] . "',";
-            echo "start: '" . $db_field['DATE'] . "',";
-            echo "url: '" . "company.php?name=" . $db_field['NAME'] . "'";
+    echo "eventRender: function (event, element) {";
+            echo "element.attr('href', 'javascript:void(0);');";
+            echo "element.click(function() {";
+                //set the modal values and open
+                echo "$('#companyHead').html(event.title);";
+                echo "$('#package').html(event.package);";
+                echo "$('#cgpa').html(event.cgpa);";
+                echo "$('#puc').html(event.puc);";
+                echo "$('#profile').html(event.profile);";
+                echo "$('#tenth').html(event.tenth);";
+                echo "$('#diploma').html(event.diploma);";
+                echo "$('#deadline').html(event.deadline);";
+                echo "$('#branches').html(event.branches);";
+              //  $('#modalBody').html(event.description);
+               // $('#eventUrl').attr('href',event.url);
+                echo "$('#companyModal').modal();";
+            echo "});";
             echo "},";
+
+    $date = date('Y-m-d');
+    echo "defaultDate: '" . $date  . "',";
+    echo "editable: true,";
+    echo "eventLimit: true,"; // allow "more" link when too many events
+    $host="localhost"; // Host name or server name
+    $username="root"; // Mysql username
+    $password=""; // Mysql password
+    $db_name="placementinformer"; // Database name
+    $tbl_name="student"; // Table name
+    $con = mysqli_connect("$host", "$username", "$password","$db_name");
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+    session_start();
+    $uname =  $_SESSION['userNameT'];
+    $result = mysqli_query($con,"SELECT c.* , d.DATE , j.PROFILE  FROM dateofvisit as d , company as c , jobprofile as j where c.NAME = d.NAME and c.NAME = j.NAME;");
+
+    //$result1 = mysqli_query($con,"SELECT * FROM company;");
+    if(!$result)
+    {
+        echo "error";
+    }
+
+    echo "events: [";
+    while($db_field = mysqli_fetch_assoc($result)) {
+        echo "{";
+        echo "title: '" . $db_field['NAME'] . "',";
+        echo "start: '" . $db_field['DATE'] . "',";
+        echo "profile:'" . $db_field['PROFILE'] . "',";
+        echo "url: '" . "company.php?name=" . $db_field['NAME'] . "',";
+        echo "package:'" . $db_field['PACKAGE'] . "',";
+        echo "cgpa:'" . $db_field['GPACUTOFF'] . "',";
+        echo "tenth:'" . $db_field['TENTHCUTOFF'] . "',";
+        echo "puc:'" . $db_field['PUCCUTOFF'] . "',";
+        echo "diploma:'" . $db_field['DIPLOMACUTOFF'] . "',";
+        echo "deadline:'" . $db_field['lastDateReg'] . "',";
+        
+        $branchesArray = "";
+        $cname1 = $db_field['NAME'];
+        $result1 = mysqli_query($con,"select * from brancheseligible where name = '$cname1';");
+        while($db_field1 = mysqli_fetch_assoc($result1)) {
+                 $branchesArray .= $db_field1['branch'] . "  ";
         }
-        echo "]";
-        echo "});";
+        echo "branches: '" . $branchesArray . "'";
+        echo "},";
+    }
+    echo "]";
+    echo "});";
 
 
-        echo "});";
+    echo "});";
 
-        echo "</script>";
-        ?>
+    echo "</script>";
+    ?>
 
 <!-- 		// // $(function(){
   //   		// $.amaran({content:{'message':'My first example!'}});
@@ -212,6 +228,105 @@ if ((isset($_SESSION['insert'])))
 -->
         <!-- /#sidebar-wrapper 
 		<div id="page-content-wrapper">-->
+
+
+            <div class="modal fade" id="companyModal" tabindex="-1" role="dialog" aria-labelledby="companyModal" aria-hidden="true" style="z-index:10000">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#7cc0bf;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                <h4 class="modal-title head1" id="companyHead"></h4>
+            </div>
+            <div class="modal-body" style="background-color:#eeeeee;">
+                    <fieldset>
+
+
+                        <!-- Password input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Package:</label>
+                            <div class="col-md-5">
+                                <div id="package" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Profile:</label>
+                            <div class="col-md-5">
+                                <div id="profile" >
+                                </div>
+                            </div>
+                        </div>     
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">CGPA Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="cgpa" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">PUC Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="puc" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Diploma Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="diploma" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">10th Cutoff:</label>
+                            <div class="col-md-5">
+                                <div id="tenth" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Deadline:</label>
+                            <div class="col-md-5">
+                                <div id="deadline" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label in3" for="curpass">Branches Eligible:</label>
+                            <div class="col-md-8">
+                                <div id="branches" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <br>                   <!-- Password input-->
+                        
+
+                    </fieldset>
+
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+</div>
+
         
 		<div class="navbar navbar-inverse" id="head-nav">
         <div class="container">
@@ -374,16 +489,17 @@ if ((isset($_SESSION['insert'])))
 						</div>
 
 						<!-- Text input-->
-						<div class="form-group">
-						  <label class="col-md-4 in4 control-label" for="cdate">Date of Visit</label>
-						  <div class="col-md-5">
-						  <input id="cdate" name="cdate" type="date" placeholder="Date of Visit" class="in4 form-control input-md" required
-                                 data-bv-notempty="true" data-bv-notempty-message="When is the company visiting?"/>
+                        <div class="form-group">
+                            <label for="dtp_input11" class="col-md-4 control-label in4" for="cdate">Dete of Visit</label>
+                            <div class="input-group date form_dateonly col-md-5"  data-date-format="yyyy-mm-dd" data-link-field="dtp_input11">
+                                <input name="cdate" id = "cdate" class="form-control input-md in4" size="16" type="text" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
 
-						  </div>
-						</div>
+                        </div>
 
-						<!-- Text input-->
+
+                        <!-- Text input-->
 						<div class="form-group">
 						  <label class="col-md-4 in4 control-label" for="cjob">Job Profiles</label>
 						  <div class="col-md-5">
@@ -536,7 +652,7 @@ if ((isset($_SESSION['insert'])))
 
 						<div class="form-group">
 							<label for="dtp_input1" class="col-md-4 control-label in4" for="cdeadline">Deadline</label>
-							<div class="input-group date form_datetime col-md-5"  data-date-format="yyyy-mm-dd HH:ii:ss " data-link-field="dtp_input1">
+							<div class="input-group date form_datetime col-md-5"  data-date-format="yyyy-mm-dd hh:ii:ss " data-link-field="dtp_input1">
 								<input name="cdeadline" id = "cdeadline" class="form-control input-md in4" size="16" type="text" readonly>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 							</div>
@@ -574,7 +690,7 @@ if ((isset($_SESSION['insert'])))
 						<div class="form-group">
 						  <label class="col-md-4 control-label" for="submit"></label>
 						  <div class="col-md-4">
-							<button id="submit" type = "submit" name="submit" class="btn btn-success" action = "php/home-pc-insert.php">Submit</button>
+							<button id="submit2" type = "submit" name="submit2" class="btn btn-success" >Submit</button>
 						  </div>
 						</div>
 
@@ -648,7 +764,8 @@ if ((isset($_SESSION['insert'])))
                 echo "<div class=\"col-md-6 col-sm-12 col-lg-6 col-xs-12 each in1\">To Be Sent Before:";
                 echo "<span class='in2' style='margin-left:10px;'>" . $db_field['lastDateReg'] . "</span>";
 
-                echo "<form action='php/exporttoexcel.php' method = 'post' target='_blank'>";
+                $actioon = "php/exporttoexcel.php?cname=" . $companyName;
+                echo "<form action= $actioon method = 'post' target='_blank'>";
                 $s= "<input type='hidden' name='companyname' id = 'companyname' value='".$companyName."'>";
 
                 echo $s;
@@ -677,6 +794,14 @@ if ((isset($_SESSION['insert'])))
         showMeridian: 1,
 		pickerPosition: 'bottom-left',
 		startDate: '+0d'
+    });
+    $('.form_dateonly').datetimepicker(
+        {
+        //language:  'fr',
+
+            pickTime: false;
+
+
     });
 
 </script>

@@ -12,6 +12,8 @@ require_once('excel_reader2.php');
 require('register-mail-sending.php');
 
 session_start();
+$reex=0;
+$_SESSION['reex'] = $reex;
 
 // Check, if username session is NOT set then this page will jump to login page
 if ((!isset($_SESSION['username']))||(!isset($_SESSION['password']) )){
@@ -19,6 +21,7 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password']) )){
 }
 
 $filename=$_FILES['file']['name'];
+
     $uploaddir = '../uploads/';
 //upload files for the first upload button
     if (file_exists($_FILES['file']['tmp_name']) || is_uploaded_file($_FILES['file']['tmp_name'])) {
@@ -115,7 +118,15 @@ if($retval1){
 $sql2="delete from temp1 where usn='$usn'";
 $retval2 = mysqli_query( $mysqli, $sql);
 
-sendmail($usn,$name,$email,$code);
+sendvmail($usn,$name,$email,$code);
+
+$reex=1;
+$_SESSION['reex'] = $reex;
+
+
+
+header('Location: ../register-new.php');
+
 
 }
 //$result1 = $mysqli->query('insert into temp values("$row['usn']","$row['name']","$row['email']","$code")');

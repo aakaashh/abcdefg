@@ -8,15 +8,15 @@ echo 'here';
 $to=$email;
 
 // Your subject
-$subject="Your confirmation link here";
+$subject="Activation of Account for Placements in RVCE";
 
 // From
 //$header="Verification of your account at Placement Informer";
 
 // Your message
-$message="Your Comfirmation link \r\n";
-$message.="Click on this link to activate your account \r\n";
-$message.="http://localhost/PlacementInformer/IN/signup.php?passkey=$code";
+$message="A confirmation link is present below.\r\n";
+$message.="<a href='http://localhost/abcdefg/PlacementInformer/IN/signup.php?passkey='".$code."'>Click on this link to activate your account </a>\r\n";
+$message.="http://localhost/abcdefg/PlacementInformer/IN/signup.php?passkey=$code";
 
 
     echo sendmail($email,'Placement Informer',$subject,$message);

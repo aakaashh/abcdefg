@@ -54,7 +54,7 @@ $body.="</h4><h5 style=\"font-family: 'Open Sans', sans-serif\" align=\"center\"
 
 }
 $_SESSION['insert'] = $insert;
-//header('Location: ../home-pc.php');
+header('Location: ../home-pc.php');
 
 ?>
 

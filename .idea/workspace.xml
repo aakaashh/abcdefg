@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e64bb09f-ebd4-40ad-8da9-53ad3e2daffb" name="Default" comment="">
+<<<<<<< HEAD
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlacementInformer/IN/register-new.php" afterPath="$PROJECT_DIR$/PlacementInformer/IN/register-new.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlacementInformer/IN/signup.php" afterPath="$PROJECT_DIR$/PlacementInformer/IN/signup.php" />
+=======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlacementInformer/IN/company.php" afterPath="$PROJECT_DIR$/PlacementInformer/IN/company.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlacementInformer/IN/edit-profile.php" afterPath="$PROJECT_DIR$/PlacementInformer/IN/edit-profile.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlacementInformer/IN/home-pc.php" afterPath="$PROJECT_DIR$/PlacementInformer/IN/home-pc.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlacementInformer/IN/register-new.php" afterPath="$PROJECT_DIR$/PlacementInformer/IN/register-new.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlacementInformer/IN/studentHome.php" afterPath="$PROJECT_DIR$/PlacementInformer/IN/studentHome.php" />
+>>>>>>> 1d6e62931ed91d42f56cb5bd1cfdb0bc4770d48c
     </list>
     <ignored path="Placementinformer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,6 +36,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+<<<<<<< HEAD
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PlacementInformer/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-12.208333" vertical-offset="2662" max-vertical-offset="3285">
+              <caret line="197" column="34" selection-start-line="197" selection-start-column="34" selection-end-line="197" selection-end-column="34" />
+              <folding />
+=======
       <file leaf-file-name="home-pc.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/home-pc.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -47,13 +60,21 @@
                 <marker date="1415094111384" expanded="false" signature="25581:25598" placeholder="..." />
                 <marker date="1415094111384" expanded="false" signature="25813:25830" placeholder="..." />
               </folding>
+>>>>>>> 1d6e62931ed91d42f56cb5bd1cfdb0bc4770d48c
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="studentHome.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/studentHome.php">
+      <file leaf-file-name="signup.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/signup.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state vertical-scroll-proportion="25.0" vertical-offset="1575" max-vertical-offset="4620">
+              <caret line="65" column="78" selection-start-line="65" selection-start-column="78" selection-end-line="65" selection-end-column="78" />
+              <folding>
+                <marker date="1415094540786" expanded="true" signature="388:434" placeholder="SELECT * FRO.._tbl_name WHERE..." />
+                <marker date="1415094540786" expanded="true" signature="8446:8468" placeholder="select * fro..branches..." />
+=======
             <state vertical-scroll-proportion="-5.5384617" vertical-offset="9189" max-vertical-offset="9809">
               <caret line="549" column="18" selection-start-line="549" selection-start-column="18" selection-end-line="549" selection-end-column="18" />
               <folding>
@@ -85,6 +106,7 @@
                 <marker date="1415094111411" expanded="false" signature="19258:19275" placeholder="..." />
                 <marker date="1415094111411" expanded="false" signature="19454:19471" placeholder="..." />
                 <marker date="1415094111411" expanded="true" signature="19752:19986" placeholder="SELECT * FRO..student..." />
+>>>>>>> 1d6e62931ed91d42f56cb5bd1cfdb0bc4770d48c
               </folding>
             </state>
           </provider>
@@ -93,13 +115,34 @@
       <file leaf-file-name="company.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/company.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state vertical-scroll-proportion="-20.041666" vertical-offset="4589" max-vertical-offset="10740">
+              <caret line="338" column="6" selection-start-line="283" selection-start-column="4" selection-end-line="338" selection-end-column="6" />
+=======
             <state vertical-scroll-proportion="-76.80769" vertical-offset="2831" max-vertical-offset="4930">
               <caret line="284" column="0" selection-start-line="284" selection-start-column="0" selection-end-line="284" selection-end-column="0" />
+>>>>>>> 1d6e62931ed91d42f56cb5bd1cfdb0bc4770d48c
               <folding>
                 <marker date="1415093599466" expanded="true" signature="1546:1571" placeholder="SELECT * FRO..dateofvisit..." />
                 <marker date="1415093599466" expanded="true" signature="2828:2853" placeholder="SELECT * FRO..dateofvisit..." />
                 <marker date="1415093599466" expanded="true" signature="5103:5148" placeholder="SELECT name ..student..." />
                 <marker date="1415093599466" expanded="true" signature="6288:6326" placeholder="SELECT * FRO..SPC..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="register-new.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/register-new.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.15730338" vertical-offset="4807" max-vertical-offset="6090">
+              <caret line="327" column="0" selection-start-line="327" selection-start-column="0" selection-end-line="327" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1415095022812" expanded="true" signature="735:780" placeholder="SELECT name ..student..." />
+                <marker date="1415095022812" expanded="true" signature="5556:5594" placeholder="SELECT * FRO..SPC..." />
+                <marker date="1415095022812" expanded="true" signature="5885:5923" placeholder="SELECT * FRO..SPC..." />
               </folding>
             </state>
           </provider>
@@ -181,6 +224,11 @@
         <option value="$PROJECT_DIR$/PlacementInformer/IN/studentHome.php" />
         <option value="$PROJECT_DIR$/PlacementInformer/IN/home-pc.php" />
         <option value="$PROJECT_DIR$/PlacementInformer/IN/edit-profile.php" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/PlacementInformer/index.php" />
+        <option value="$PROJECT_DIR$/PlacementInformer/IN/signup.php" />
+=======
+>>>>>>> 1d6e62931ed91d42f56cb5bd1cfdb0bc4770d48c
         <option value="$PROJECT_DIR$/PlacementInformer/IN/register-new.php" />
       </list>
     </option>
@@ -441,6 +489,8 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
     <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/home-pc.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="8.846154" vertical-offset="11518" max-vertical-offset="12087">
@@ -520,6 +570,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> 1d6e62931ed91d42f56cb5bd1cfdb0bc4770d48c
     <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/edit-profile.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.8846154" vertical-offset="1777" max-vertical-offset="9639">
@@ -545,6 +596,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/register-new.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state vertical-scroll-proportion="-12.208333" vertical-offset="2662" max-vertical-offset="3285">
+          <caret line="197" column="34" selection-start-line="197" selection-start-column="34" selection-end-line="197" selection-end-column="34" />
+          <folding />
+=======
         <state vertical-scroll-proportion="0.94024605" vertical-offset="1301" max-vertical-offset="6460">
           <caret line="108" column="6" selection-start-line="108" selection-start-column="6" selection-end-line="108" selection-end-column="6" />
           <folding>
@@ -553,6 +609,95 @@
             <marker date="1415094499095" expanded="true" signature="2919:2944" placeholder="SELECT * FRO..dateofvisit..." />
             <marker date="1415094499095" expanded="true" signature="5983:6021" placeholder="SELECT * FRO..SPC..." />
             <marker date="1415094499095" expanded="true" signature="6312:6350" placeholder="SELECT * FRO..SPC..." />
+          </folding>
+>>>>>>> 1d6e62931ed91d42f56cb5bd1cfdb0bc4770d48c
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/studentHome.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.776886" vertical-offset="0" max-vertical-offset="8745">
+          <caret line="323" column="106" selection-start-line="323" selection-start-column="106" selection-end-line="323" selection-end-column="106" />
+          <folding>
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT name ..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT email..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT usn F..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT branc..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT cgpa ..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT tenth..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT twelt..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT phone..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..spc..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT branc..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT disti..company..." />
+            <marker date="1415089948483" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..jobprofile..." />
+            <marker date="1415089948483" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1415089948483" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT branc..student..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT disti..company..." />
+            <marker date="1415089948483" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..dateofvisit..." />
+            <marker date="1415089948483" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..jobprofile..." />
+            <marker date="1415089948483" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1415089948483" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1415089948483" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1415089948483" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..student..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/company.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="114.041664" vertical-offset="2737" max-vertical-offset="4440">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1415073645862" expanded="true" signature="-1:-1" placeholder="SELECT name ..student..." />
+            <marker date="1415073645862" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..SPC..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/home-pc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.041666" vertical-offset="4589" max-vertical-offset="10740">
+          <caret line="338" column="6" selection-start-line="283" selection-start-column="4" selection-end-line="338" selection-end-column="6" />
+          <folding>
+            <marker date="1415089467936" expanded="true" signature="7764:7802" placeholder="SELECT * FRO..spc..." />
+            <marker date="1415089467936" expanded="true" signature="22713:22838" placeholder="SELECT C.NAM..company..." />
+            <marker date="1415089467936" expanded="false" signature="23407:23424" placeholder="..." />
+            <marker date="1415089467936" expanded="false" signature="23633:23650" placeholder="..." />
+            <marker date="1415089467936" expanded="true" signature="24103:24208" placeholder="SELECT * FRO..company..." />
+            <marker date="1415089467936" expanded="false" signature="24525:24542" placeholder="..." />
+            <marker date="1415089467936" expanded="false" signature="24757:24774" placeholder="..." />
+            <marker date="1415089467936" expanded="true" signature="25793:25801" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/signup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="25.0" vertical-offset="1575" max-vertical-offset="4620">
+          <caret line="65" column="78" selection-start-line="65" selection-start-column="78" selection-end-line="65" selection-end-column="78" />
+          <folding>
+            <marker date="1415094540786" expanded="true" signature="388:434" placeholder="SELECT * FRO.._tbl_name WHERE..." />
+            <marker date="1415094540786" expanded="true" signature="8446:8468" placeholder="select * fro..branches..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlacementInformer/IN/register-new.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15730338" vertical-offset="4807" max-vertical-offset="6090">
+          <caret line="327" column="0" selection-start-line="327" selection-start-column="0" selection-end-line="327" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1415095022812" expanded="true" signature="735:780" placeholder="SELECT name ..student..." />
+            <marker date="1415095022812" expanded="true" signature="5556:5594" placeholder="SELECT * FRO..SPC..." />
+            <marker date="1415095022812" expanded="true" signature="5885:5923" placeholder="SELECT * FRO..SPC..." />
           </folding>
         </state>
       </provider>

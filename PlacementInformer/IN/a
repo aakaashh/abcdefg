@@ -38,6 +38,28 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
     <script src='js/fullcalendar.min.js'></script>
     <?php
 
+    $host="localhost"; // Host name or server name
+    $username="root"; // Mysql username
+    $password=""; // Mysql password
+    $db_name="placementinformer"; // Database name
+    $tbl_name="student"; // Table name
+    $con = mysqli_connect("$host", "$username", "$password","$db_name");
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+    session_start();
+    $uname =  $_SESSION['userNameT'];
+    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
+    if(!$result)
+    {
+        echo "error";
+    }
+    while($db_field = mysqli_fetch_assoc($result))
+    {
+        echo "title: '" . $db_field['NAME'] . "'";
+        echo "start: '" . $db_field['DATE'] . "'";
+    }echo ",";
+
     echo "<script>";
 
     echo "$(document).ready(function() {";
@@ -53,28 +75,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
     echo "center: 'title',";
     echo "right: 'month,basicWeek,basicDay'";
     echo "},";
-
-    echo "eventRender: function (event, element) {";
-            echo "element.attr('href', 'javascript:void(0);');";
-            echo "element.click(function() {";
-                //set the modal values and open
-                echo "$('#companyHead').html(event.title);";
-                echo "$('#package').html(event.package);";
-                echo "$('#cgpa').html(event.cgpa);";
-                echo "$('#puc').html(event.puc);";
-                echo "$('#profile').html(event.profile);";
-                echo "$('#tenth').html(event.tenth);";
-                echo "$('#diploma').html(event.diploma);";
-                echo "$('#deadline').html(event.deadline);";
-                echo "$('#branches').html(event.branches);";
-              //  $('#modalBody').html(event.description);
-               // $('#eventUrl').attr('href',event.url);
-                echo "$('#companyModal').modal();";
-            echo "});";
-            echo "},";
-
-    $date = date('Y-m-d');
-    echo "defaultDate: '" . $date  . "',";
+    echo "defaultDate: '2014-09-12',";
     echo "editable: true,";
     echo "eventLimit: true,"; // allow "more" link when too many events
     $host="localhost"; // Host name or server name
@@ -88,9 +89,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
     }
     session_start();
     $uname =  $_SESSION['userNameT'];
-    $result = mysqli_query($con,"SELECT c.* , d.DATE , j.PROFILE  FROM dateofvisit as d , company as c , jobprofile as j where c.NAME = d.NAME and c.NAME = j.NAME;");
-
-    //$result1 = mysqli_query($con,"SELECT * FROM company;");
+    $result = mysqli_query($con,"SELECT * FROM dateofvisit;");
     if(!$result)
     {
         echo "error";
@@ -101,22 +100,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
         echo "{";
         echo "title: '" . $db_field['NAME'] . "',";
         echo "start: '" . $db_field['DATE'] . "',";
-        echo "profile:'" . $db_field['PROFILE'] . "',";
-        echo "url: '" . "company.php?name=" . $db_field['NAME'] . "',";
-        echo "package:'" . $db_field['PACKAGE'] . "',";
-        echo "cgpa:'" . $db_field['GPACUTOFF'] . "',";
-        echo "tenth:'" . $db_field['TENTHCUTOFF'] . "',";
-        echo "puc:'" . $db_field['PUCCUTOFF'] . "',";
-        echo "diploma:'" . $db_field['DIPLOMACUTOFF'] . "',";
-        echo "deadline:'" . $db_field['lastDateReg'] . "',";
-        
-        $branchesArray = "";
-        $cname1 = $db_field['NAME'];
-        $result1 = mysqli_query($con,"select * from brancheseligible where name = '$cname1';");
-        while($db_field1 = mysqli_fetch_assoc($result1)) {
-                 $branchesArray .= $db_field1['branch'] . "  ";
-        }
-        echo "branches: '" . $branchesArray . "'";
+        echo "url: '" . "company.php?name=" . $db_field['NAME'] . "'";
         echo "},";
     }
     echo "]";
@@ -213,105 +197,6 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
 <body>
 
 
-        <div class="modal fade" id="companyModal" tabindex="-1" role="dialog" aria-labelledby="companyModal" aria-hidden="true" style="z-index:10000">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color:#7cc0bf;">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
-                <h4 class="modal-title head1" id="companyHead"></h4>
-            </div>
-            <div class="modal-body" style="background-color:#eeeeee;">
-                    <fieldset>
-
-
-                        <!-- Password input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label in3" for="curpass">Package:</label>
-                            <div class="col-md-5">
-                                <div id="package" >
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label in3" for="curpass">Profile:</label>
-                            <div class="col-md-5">
-                                <div id="profile" >
-                                </div>
-                            </div>
-                        </div>     
-                        <br>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label in3" for="curpass">CGPA Cutoff:</label>
-                            <div class="col-md-5">
-                                <div id="cgpa" >
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label in3" for="curpass">PUC Cutoff:</label>
-                            <div class="col-md-5">
-                                <div id="puc" >
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label in3" for="curpass">Diploma Cutoff:</label>
-                            <div class="col-md-5">
-                                <div id="diploma" >
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label in3" for="curpass">10th Cutoff:</label>
-                            <div class="col-md-5">
-                                <div id="tenth" >
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label in3" for="curpass">Deadline:</label>
-                            <div class="col-md-5">
-                                <div id="deadline" >
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label in3" for="curpass">Branches Eligible:</label>
-                            <div class="col-md-8">
-                                <div id="branches" >
-                                </div>
-                            </div>
-                        </div>
-
-                        <br>
-                        <br>                   <!-- Password input-->
-                        
-
-                    </fieldset>
-
-
-            </div>
-            
-        </div>
-    </div>
-</div>
-</div>
-
-
-
 <div class="navbar navbar-inverse" id="head-nav">
     <div class="container">
         <div class="navbar-header">
@@ -377,8 +262,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                         <div class="form-group">
                             <label class="col-md-4 control-label in3" for="curpass">Current Password</label>
                             <div class="col-md-5">
-                                <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters">
-
+                                <input id="curpass" name="curpass" type="password" placeholder="Current Password" class="form-control input-md">
                             </div>
                         </div>
 
@@ -386,10 +270,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                         <div class="form-group">
                             <label class="col-md-4 control-label in3" for="newpass">New Password</label>
                             <div class="col-md-5">
-                                <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty" data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="The password must have at least 8 characters"
-                                       data-bv-different="true"
-                                       data-bv-different-field="curpass"
-                                       data-bv-different-message="The old and new password cannot be the same" >
+                                <input id="newpass" name="newpass" type="password" placeholder="New Password" class="form-control input-md">
                             </div>
                         </div>
 
@@ -397,10 +278,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                         <div class="form-group">
                             <label class="col-md-4 control-label in3" for="connewpass">Confirm New Password</label>
                             <div class="col-md-5">
-                                <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md"
-                                       data-bv-notempty="true" data-bv-notempty-message="The confirm password is required and cannot be empty"
-                                       data-bv-identical="true" data-bv-identical-field="newpass" data-bv-identical-message="Passwords do not match"
-                                       data-bv-different="true" data-bv-different-field="curpass" data-bv-different-message="The old and password cannot be the same" >
+                                <input id="connewpass" name="connewpass" type="password" placeholder="Confirm New Password" class="form-control input-md">
                             </div>
                         </div>
 
@@ -418,6 +296,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
     </div>
 </div>
 </div>
+
 
 <div class="modal fade" id="calenderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" >
@@ -501,7 +380,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                     $result = mysqli_query($con,"SELECT branch FROM student where USN = '$uname';");
                     while($db_field=mysqli_fetch_assoc($result))
                     {
-                        echo "<input id=\"branch\" name=\"branch\" type=\"text\" value = ". $db_field['branch'] . " class=\"form-control input-md in4\" data-bv-notempty=\"true\" data-bv-notempty-message=\"What's your Branch?\" readonly>";
+                        echo "<input id=\"branch\" name=\"branch\" type=\"text\" value = ". $db_field['branch'] . " class=\"form-control input-md in4\" data-bv-notempty=\"true\" data-bv-notempty-message=\"What's your Branch?\">";
                     }
                     ?>
                 </div>
@@ -536,13 +415,22 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                  data-bv-greaterthan=\"true\"
                   data-bv-greaterthan-value=\"0\"
                   data-bv-lessthan=\"true\"
-                  data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\" readonly>";
+                  data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\">";
                     }
                     ?>
 
                 </div>
             </div>
 
+            <div class="form-group">
+
+                <label class="col-md-4 in1 control-label" for="radiocheck">Select an option</label>
+                <div class="col-md-5">
+                    <label class="radio-inline">
+                        <input type="radio" id="pucrb" name="pucdip" value="1" onclick="hidedata();">12th Standard</label>
+                    <label class="radio-inline"><input type="radio" id="diprb" name="pucdip" value="2" onclick="hidedata();">Diploma</label>
+                </div>
+            </div>
             <!-- Text input-->
             <div class="form-group" id="t1">
                 <label class="col-md-4  in1 control-label" for="twelfth">12th % (N/A)</label>
@@ -555,7 +443,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                   data-bv-greaterthan=\"true\"
                   data-bv-greaterthan-value=\"0\"
                   data-bv-lessthan=\"true\"
-                  data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\" readonly>";
+                  data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\">";
                     }
                     ?>
 
@@ -575,7 +463,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                   data-bv-greaterthan=\"true\"
                   data-bv-greaterthan-value=\"0\"
                   data-bv-lessthan=\"true\"
-                  data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\" readonly>";
+                  data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\">";
                     }
                     ?>
 
@@ -596,7 +484,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                   data-bv-greaterthan=\"true\"
                   data-bv-greaterthan-value=\"0\"
                   data-bv-lessthan=\"true\"
-                  data-bv-lessthan-value=\"10\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\" readonly>";;
+                  data-bv-lessthan-value=\"10\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\">";;
                     }
                     ?>
 
@@ -643,17 +531,6 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
             }});
-        var dipval= 0,pucval=0;
-        pucval=$('#twelfth').val();
-        dipval=$('#diploma').val();
-        if(dipval == 100)
-        {
-            $('#t1').hide();
-        }
-        else
-        {
-            $('#t2').hide();
-        }
     });
 
     var dipval= 0,pucval=0;
