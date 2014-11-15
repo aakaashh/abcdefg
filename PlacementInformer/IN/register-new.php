@@ -162,8 +162,6 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
     <link rel="stylesheet" href="css/amaran.min.css">
     <script src="js/jquery.amaran.min.js"></script>
 
-
-
     <?php
     if ((isset($_SESSION['reex'])))
     {
@@ -541,7 +539,6 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
          data-bv-stringlength-min="10"
          data-bv-stringlength-message="Enter Valid USN"
          data-bv-regexp="true">
-
   </div>
 </div>
 
@@ -551,7 +548,6 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password'])))
   <div class="col-md-6">
   <input id="email" name="email" type="email" placeholder="Email id" class="in4 form-control input-md"
          data-bv-emailaddress-message="The value is not a valid email address">
-
   </div>
 </div>
 

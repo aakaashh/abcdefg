@@ -11,7 +11,6 @@ if ((!isset($_SESSION['username']))||(!isset($_SESSION['password']) )){
 header('Content-Type: text/csv; charset=utf-8');
 $company = $_GET['cname'] . '.csv';
 
-
 header('Content-Disposition: attachment; filename= '.$company);
 $output = fopen('php://output', 'w');
 fputcsv($output, array('USN', 'Name', 'Branch' , 'Email-ID' , 'Phone' , 'CGPA' , 'Tenth Percentage' , 'Twelth Percentage' , 'Diploma Percentage'));

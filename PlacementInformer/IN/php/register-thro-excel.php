@@ -128,6 +128,14 @@ $_SESSION['reex'] = $reex;
 header('Location: ../register-new.php');
 
 
+$reex=1;
+$_SESSION['reex'] = $reex;
+
+
+
+header('Location: ../register-new.php');
+
+
 }
 //$result1 = $mysqli->query('insert into temp values("$row['usn']","$row['name']","$row['email']","$code")');
 //$retval = mysqli_query( $mysqli, $sql);

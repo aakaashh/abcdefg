@@ -501,6 +501,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                     $result = mysqli_query($con,"SELECT branch FROM student where USN = '$uname';");
                     while($db_field=mysqli_fetch_assoc($result))
                     {
+
                         echo "<input id=\"branch\" name=\"branch\" type=\"text\" value = ". $db_field['branch'] . " class=\"form-control input-md in4\" data-bv-notempty=\"true\" data-bv-notempty-message=\"What's your Branch?\" readonly>";
                     }
                     ?>
@@ -536,6 +537,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                  data-bv-greaterthan=\"true\"
                   data-bv-greaterthan-value=\"0\"
                   data-bv-lessthan=\"true\"
+
                   data-bv-lessthan-value=\"100\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\" readonly>";
                     }
                     ?>
@@ -597,6 +599,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                   data-bv-greaterthan-value=\"0\"
                   data-bv-lessthan=\"true\"
                   data-bv-lessthan-value=\"10\" data-bv-notempty=\"true\" data-bv-notempty-message=\"Field cannot be empty\" readonly>";;
+
                     }
                     ?>
 
@@ -643,6 +646,7 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
             }});
+<<<<<<< HEAD
         var dipval= 0,pucval=0;
         pucval=$('#twelfth').val();
         dipval=$('#diploma').val();
@@ -677,6 +681,31 @@ $result = mysqli_query($con,"SELECT name FROM student where USN = '$uname';");
             $('#diploma').val(dipval);
             $('#t2').show();
         }
+=======
+    });
+
+    var dipval= 0,pucval=0;
+    pucval=$('#twelfth').val();
+    dipval=$('#diploma').val();
+    function hidedata() {
+
+        var selected = $("input[name=pucdip]:checked").val();
+
+        if(selected==1)
+        {
+            $('#diploma').val(100);
+            $('#t2').hide();
+            $('#twelfth').val(pucval);
+            $('#t1').show();
+        }
+        else if(selected==2)
+        {
+            $('#twelfth').val(100);
+            $('#t1').hide();
+            $('#diploma').val(dipval);
+            $('#t2').show();
+        }
+>>>>>>> 303a131011f4128b3658ef18ff965a5b0dc71b79
     }
 </script>
 </body>
